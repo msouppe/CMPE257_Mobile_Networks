@@ -1,0 +1,13 @@
+# Sample configuration of data to be parsed for simulation
+#---
+#randomSeed: number
+#numMotes: number
+#x_placement: number
+#y_placement: number
+#terrain: "string"
+---
+randomSeed: 65432
+numMotes: 5
+---
+randomSeed: 87654
+numMotes: 2
