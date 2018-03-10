@@ -8,7 +8,7 @@
   <project EXPORT="discard">[APPS_DIR]/powertracker</project>
   <simulation>
     <title>My simulation</title>
-    <randomseed>{{ random_seed }}</randomseed>
+    <randomseed>{{ RANDOM_SEED }}</randomseed>
     <motedelay_us>1000000</motedelay_us>
     <radiomedium>
       org.contikios.cooja.radiomediums.TerrainLOSMedium
@@ -87,11 +87,9 @@
   <plugin>
     org.contikios.cooja.plugins.TimeLine
     <plugin_config>
-      {% set count = 0 %}
-      {% set max = motes %}
+      {% set max = MOTES %}
       {% for i in range(max) %}
       	<mote>{{ i }}</mote>
-      	{% set count = count + 1%}
       {% endfor %}
       <showRadioRXTX />
       <showRadioHW />

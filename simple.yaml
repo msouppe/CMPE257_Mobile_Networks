@@ -8,6 +8,10 @@
 ---
 randomSeed: 65432
 numMotes: 5
+x_placement: 1
+y_placement: 1
 ---
 randomSeed: 87654
 numMotes: 2
+x_placement: 1
+y_placement: 1

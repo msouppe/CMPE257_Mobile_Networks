@@ -1,5 +1,8 @@
+#!/usr/bin/env python
+
 # Load the jinja library's namespace into the current module.
 from jinja2 import Environment, FileSystemLoader
+import javarandom
 import os
 import sys
 import yaml
@@ -30,19 +33,27 @@ TEMPLATE_FILE = "template.csc"
 # This also constructs our Template object.
 template = templateEnv.get_template( TEMPLATE_FILE )
 
+# Temp variable to keep track of output files
 counter = 0
 
-for data in yaml.load_all(f):
+# Declare java random generator
+r = javarandom.Random()
 
+for data in yaml.load_all(f):
+    # Random coordinate generator w/ Java random seed
+    r.setSeed(data["randomSeed"])
+    
 	# Specify any input variables to the template as a dictionary.
-    templateVars = { "random_seed" : str(data["randomSeed"]),
-                           "motes" : data["numMotes"]}
+    templateVars = { "RANDOM_SEED" : str(data["randomSeed"]),
+                           "MOTES" : data["numMotes"],
+                         "X_COORD" : r.nextInt(8000),
+                         "Y_COORD" : r.nextInt(6000)    }
 
     # Finally, process the template to produce our final text.
     outputText = template.render( templateVars )
 
     # Create new file simulation with write privalages
-    f = open('blah_'+ str(counter) +'.csc', 'w')
+    f = open('simTest_'+ str(counter) +'.csc', 'w')
 
     # New file with new variables
     f.write(outputText)
