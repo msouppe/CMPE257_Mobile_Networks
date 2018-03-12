@@ -10,11 +10,7 @@
 random: true
 randomSeed: 65432
 numMotes: 5
-x_coord: 1
-y_coord: 1
 ---
 random: true
 randomSeed: 87654
 numMotes: 2
-x_coord: 1
-y_coord: 1

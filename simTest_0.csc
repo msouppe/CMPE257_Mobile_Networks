@@ -8,7 +8,7 @@
   <project EXPORT="discard">[APPS_DIR]/powertracker</project>
   <simulation>
     <title>My simulation</title>
-    <randomseed>{{ RANDOM_SEED }}</randomseed>
+    <randomseed>65432</randomseed>
     <motedelay_us>1000000</motedelay_us>
     <radiomedium>
       org.contikios.cooja.radiomediums.TerrainLOSMedium
@@ -33,24 +33,72 @@
       <motepath>[COOJA_DIR]/examples/appmote_mobile</motepath>
       <moteclass>AppMoteMobile</moteclass>
     </motetype>
-    {% set max = MOTES+1 %}
-    {% for i in range(1, max) %}
-    <mote>
+            <mote>
       <interface_config>
         org.contikios.cooja.motes.AbstractApplicationMoteType$SimpleMoteID
-        <id>{{ i }}</id>
+        <id>1</id>
       </interface_config>
       <interface_config>
         org.contikios.cooja.interfaces.Position
-        {% set num = i|string() %}
-        <x>{{ (X_COORD, num)|join("_") }}</x>
-        <y>{{ (Y_COORD, num)|join("_") }}</y>
+                <x>_1</x>
+        <y>_1</y>
         <z>0.0</z>
       </interface_config>
       <motetype_identifier>apptype1</motetype_identifier>
     </mote>
-    {% endfor %}
-  </simulation>
+        <mote>
+      <interface_config>
+        org.contikios.cooja.motes.AbstractApplicationMoteType$SimpleMoteID
+        <id>2</id>
+      </interface_config>
+      <interface_config>
+        org.contikios.cooja.interfaces.Position
+                <x>_2</x>
+        <y>_2</y>
+        <z>0.0</z>
+      </interface_config>
+      <motetype_identifier>apptype1</motetype_identifier>
+    </mote>
+        <mote>
+      <interface_config>
+        org.contikios.cooja.motes.AbstractApplicationMoteType$SimpleMoteID
+        <id>3</id>
+      </interface_config>
+      <interface_config>
+        org.contikios.cooja.interfaces.Position
+                <x>_3</x>
+        <y>_3</y>
+        <z>0.0</z>
+      </interface_config>
+      <motetype_identifier>apptype1</motetype_identifier>
+    </mote>
+        <mote>
+      <interface_config>
+        org.contikios.cooja.motes.AbstractApplicationMoteType$SimpleMoteID
+        <id>4</id>
+      </interface_config>
+      <interface_config>
+        org.contikios.cooja.interfaces.Position
+                <x>_4</x>
+        <y>_4</y>
+        <z>0.0</z>
+      </interface_config>
+      <motetype_identifier>apptype1</motetype_identifier>
+    </mote>
+        <mote>
+      <interface_config>
+        org.contikios.cooja.motes.AbstractApplicationMoteType$SimpleMoteID
+        <id>5</id>
+      </interface_config>
+      <interface_config>
+        org.contikios.cooja.interfaces.Position
+                <x>_5</x>
+        <y>_5</y>
+        <z>0.0</z>
+      </interface_config>
+      <motetype_identifier>apptype1</motetype_identifier>
+    </mote>
+      </simulation>
   <plugin>
     org.contikios.cooja.plugins.SimControl
     <width>280</width>
@@ -91,11 +139,12 @@
   <plugin>
     org.contikios.cooja.plugins.TimeLine
     <plugin_config>
-      {% set max = MOTES %}
-      {% for i in range(max) %}
-      	<mote>{{ i }}</mote>
-      {% endfor %}
-      <showRadioRXTX />
+                  	<mote>0</mote>
+            	<mote>1</mote>
+            	<mote>2</mote>
+            	<mote>3</mote>
+            	<mote>4</mote>
+            <showRadioRXTX />
       <showRadioHW />
       <showLEDs />
       <zoomfactor>500.0</zoomfactor>
@@ -141,4 +190,3 @@ log.testOK();</script>
     <location_y>221</location_y>
   </plugin>
 </simconf>
-

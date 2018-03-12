@@ -6,6 +6,7 @@ import javarandom
 import os
 import sys
 import yaml
+import random
 
 # data["random"]
 # data["randomSeed"]
@@ -38,27 +39,40 @@ template = templateEnv.get_template( TEMPLATE_FILE )
 counter = 0
 
 # Declare java random generator
-r = javarandom.Random()
+#rand_x = javarandom.Random()
+#rand_y = javarandom.Random()
+
+#rand_x = 
+
+#blahs = random()
 
 for data in yaml.load_all(f):
-    
+
     # Random coordinate generator w/ Java random seed
-    r.setSeed(data["randomSeed"])
-    
+    #rand_x.setSeed(data["randomSeed"])
+    #rand_y.setSeed(data["randomSeed"])
+
     # Choose fixed values for the x,y coordinates for motes
     if (data["random"] == False ):
-        templateVars = { "RANDOM_SEED" : str(data["randomSeed"]),
-                           "MOTES" : data["numMotes"],
-                         "X_COORD" : data["x_coord"],
-                         "Y_COORD" : data["y_coord"]    }
+    
+        for i in range(data["numMotes"]):
+            templateVars = { "RANDOM_SEED" : str(data["randomSeed"]),
+                                   "MOTES" : data["numMotes"],
+                             "X_COORD_" + i + "" : 1,
+                             "Y_COORD_" + i + "" : 1    }        
     
     # Else use random generator to choose x,y mote coordinates
-	# Specify any input variables to the template as a dictionary.
-    templateVars = { "RANDOM_SEED" : str(data["randomSeed"]),
-                           "MOTES" : data["numMotes"],
-                         "X_COORD" : r.nextInt(8000),
-                         "Y_COORD" : r.nextInt(6000)    }
-
+    # Specify any input variables to the template as a dictionary.
+#    templateVars = { "RANDOM_SEED" : str(data["randomSeed"]),
+#                           "MOTES" : data["numMotes"],
+#                         "X_COORD" : rand_x.nextInt(8000),
+#                         "Y_COORD" : rand_y.nextInt(6000)   }
+    for i in range(data["numMotes"]):
+        templateVars = { "RANDOM_SEED" : str(data["randomSeed"]),
+                               "MOTES" : data["numMotes"],
+                         "X_COORD_" + str(i) + "" : random.randint(0, 8000),
+                         "Y_COORD_" + str(i) + "" : random.randint(0, 6000)    }
+        
     # Process the template to produce our final text.
     outputText = template.render( templateVars )
 
@@ -70,4 +84,3 @@ for data in yaml.load_all(f):
 
     # Counter used for simulation filename index
     counter += 1
-
