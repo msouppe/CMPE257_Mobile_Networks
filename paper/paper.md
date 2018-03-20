@@ -36,6 +36,7 @@ This enables the portability of an experiment which further helps achieve reprod
 
 
 ## Cooja
+For the experiment, to be described in the next section, uses Cooja to conduct the main experiment. Cooja is a network simulator that is used in wireless sensor networks which allows to simulate small or large networks.
 
 # Example
 
@@ -45,37 +46,34 @@ This enables the portability of an experiment which further helps achieve reprod
 Figure X shows the pipeline for the this experiment and all of the 
 
   * .popper.yaml
-    This file 
+    This file consists the ordering in which popper executes the main scripts; setup.sh, run.sh, post-run.sh to run the entire experiment with out extra input.
 
   * .git
-    
+    Currently the full experiment is not on Git, which it will be soon, however having the whole pipeline on Git will achieve the portable and reproducibility goal. Any user will be able to clone the repository and be able to reproduce the experiment with out having to individually download dependecies.
 
   * setup.sh
     The 2.5D Terrain experiment requires Java and the scripts require Python in order to run so by using Docker a container is built and run with the propper libraries and environment.
 
   * run.sh
-    
-
-  * post-run.sh
-    
+    The run script will run the simulations in the environment that's been previously defined in the setup script.
 
   * sim_config.yaml
-    The simulation configration file allows the user to run multiple experiments with different values for the parameters. The parameters that the user can define are the filename, decide to use a random generator true/false for nodes placement, random seed, and number of nodes (maximum of 50). The filename is used to name the different experiments so when looking at the final output it will be evident which experiment produce certain results. As of right now the algorithm has hard coded values for the initial placement of the nodes, but as the experiment is further developed the random generator will radomly generator the node placement. The user can also define the amount of nodes desired for the experiment with a maximum of 50 nodes, since that is the maximum the algorithm of the experiment can handle.
+    The simulation configration file allows the user to run multiple experiments with different values for the parameters. The parameters that the user can define are the filename, decide to use a random generator true/false for nodes placement, random seed, and number of nodes (maximum of 50). The filename is used to name the different experiments so when looking at the final output it will be evident which experiment produce certain results. As of right now the algorithm has hard coded values for the initial placement of the nodes, but as the experiment is further developed the random generator will radomly generator the node placement. [Add in about random seed and point of that] The user can also define the amount of nodes desired for the experiment with a maximum of 50 nodes, since that is the maximum the algorithm of the experiment can handle.
 
   * sim_template.csc
-    T
+    The template file consists of how the simulator reads in script to create the simulations based on the defined parameters for each experiment.
 
   * create_sim_files.py
-    For the N amount of simulations defined in the sim_config.yaml, this file will merge the parameters with the template to create N amount of simlations 
+    For the N amount of simulations defined in the sim_config.yaml, this file will merge the parameters with the template to create N amount of simlations.
 
   * simulations directory
     This directory contains all of the simulation files that were produced from create_sim_files.py which will are then run in run.sh
 
   * output directory
-    This directory 
+    This directory contains the output for each of the simulations containing the final visability value between the nodes [Need better wording and explain that a bit more]
 
   * contiki/tools/cooja
-    In this directory path, the main experiment with the Java files are in here since Cooja is Java based. Further in this directory this is where the actual experiment is run. 
+    In this directory path, the main experiment with the Java files are in here since Cooja is the simulation tool used for the experiment and actual experiment is run. 
     
 
 Quality assurance (QA) is an essential activity in the software 
