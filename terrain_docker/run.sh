@@ -26,7 +26,7 @@ filenames=$(ls ../../../simulations/)
 for file in $filenames; do
    # echo "$file"
    # ant run_nogui -Dargs="$absolutePath/$file" 
-   docker run -v `pwd`:/experiment --workdir=/experiment/contiki/tools/cooja terrain ant run_nogui -Dargs="$absolutePath/$file"
+   docker run -v `pwd`:/experiment --workdir=/experiment/contiki/tools/cooja --entrypoint=/experiment/contiki/tools/cooja terrain ant run_nogui -Dargs="$absolutePath/$file"
    docker cp :/experiment/contiki/tools/cooja/build/COOJA.testlog $outputPath/"${file}_log".log
    # cp $logPath $outputPath/"${file}_log".log
 done
