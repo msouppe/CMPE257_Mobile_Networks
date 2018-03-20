@@ -17,7 +17,7 @@ cd ../contiki/tools/cooja
 outputPath=../../../output
 logPath=build/COOJA.testlog
 
-JAVA_HOME=/usr ; export JAVA_HOME
+#JAVA_HOME=/usr ; export JAVA_HOME
 
 # Get each file in the simulation directory and save to variable.
 filenames=$(ls ../../../simulations/)
@@ -26,8 +26,9 @@ filenames=$(ls ../../../simulations/)
 for file in $filenames; do
    # echo "$file"
    # ant run_nogui -Dargs="$absolutePath/$file" 
-   docker run -v `pwd`:/experiment --workdir=/experiment/contiki/cooja cooja-exp ant run_nogui -Dargs="$absolutePath/$file"
-   cp $logPath $outputPath/"${file}_log".log
+   docker run -v `pwd`:/experiment --workdir=/experiment/contiki/tools/cooja terrain ant run_nogui -Dargs="$absolutePath/$file"
+   docker cp :/experiment/contiki/tools/cooja/build/COOJA.testlog $outputPath/"${file}_log".log
+   # cp $logPath $outputPath/"${file}_log".log
 done
 
 exit 0
