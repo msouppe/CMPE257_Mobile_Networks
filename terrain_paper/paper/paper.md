@@ -16,7 +16,7 @@ author:
   email: katia@soe.ucsc.edu
 abstract: |
  In the mobile and wireless network domain there are a lot of simulations and domain tools that are required to be produce results of an experiment. Our approach is to minimize the amount of time spent to set up experiments and assumptions for experiments and be able to reproduce experiments with available tools for any user to conduct an experiment on their own environment with no clashing dependencies. Using Popper, a convention and CLI tool, and Docker, a container image, allows any user to reproduce experiments from their peers or a research paper with the exact parameters and assumptions has the author made. This allows for easy replication and reproducibility.
-
+---
 
 # Introduction
 

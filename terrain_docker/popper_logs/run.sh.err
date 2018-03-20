@@ -1,0 +1,6 @@
++ outputPath=../../../output
++ logPath=contiki/tools/cooja/build/COOJA.testlog
++ filenames='simulations/*.csc'
++ for file in $filenames
+++ pwd
++ docker run -v /home/yeyette/Kerry_Exp_with_Docker/pipelines/2_5DTerrain:/experiment --workdir=/experiment/contiki/tools/cooja --entrypoint=ant terrain run_nogui -Dargs=/experiment/simulations/sim_test_0.csc
