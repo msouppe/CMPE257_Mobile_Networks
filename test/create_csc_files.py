@@ -39,39 +39,34 @@ template = templateEnv.get_template( TEMPLATE_FILE )
 counter = 0
 
 # Declare java random generator
-#rand_x = javarandom.Random()
-#rand_y = javarandom.Random()
+rand = javarandom.Random()
 
-#rand_x = 
-
-#blahs = random()
+# Init x and y coordinate arrays for Jijna parsing
+x_coords = []
+y_coords = []
+    
 
 for data in yaml.load_all(f):
 
     # Random coordinate generator w/ Java random seed
-    #rand_x.setSeed(data["randomSeed"])
-    #rand_y.setSeed(data["randomSeed"])
-
+    #rand.setSeed(data["randomSeed"])
+    
     # Choose fixed values for the x,y coordinates for motes
-    if (data["random"] == False ):
-    
-        for i in range(data["numMotes"]):
-            templateVars = { "RANDOM_SEED" : str(data["randomSeed"]),
-                                   "MOTES" : data["numMotes"],
-                             "X_COORD_" + i + "" : 1,
-                             "Y_COORD_" + i + "" : 1    }        
-    
-    # Else use random generator to choose x,y mote coordinates
-    # Specify any input variables to the template as a dictionary.
-#    templateVars = { "RANDOM_SEED" : str(data["randomSeed"]),
-#                           "MOTES" : data["numMotes"],
-#                         "X_COORD" : rand_x.nextInt(8000),
-#                         "Y_COORD" : rand_y.nextInt(6000)   }
     for i in range(data["numMotes"]):
-        templateVars = { "RANDOM_SEED" : str(data["randomSeed"]),
-                               "MOTES" : data["numMotes"],
-                         "X_COORD_" + str(i) + "" : random.randint(0, 8000),
-                         "Y_COORD_" + str(i) + "" : random.randint(0, 6000)    }
+        if (data["random"] == False ):    
+            x_coords.append(str(1))
+            y_coords.append(str(1))
+        else:
+            x_coords.append(str(rand.nextInt(8000)))
+            y_coords.append(str(rand.nextInt(6000)))
+    
+    # Merges the two arrays of x and y coordinates for easier Jijna parsing
+    coordinates = zip(x_coords, y_coords)
+    
+    # Specify any input variables to the template as a dictionary.
+    templateVars = { "RANDOM_SEED" : str(data["randomSeed"]),
+                           "MOTES" : data["numMotes"],
+                         "COORD" : coordinates                    }
         
     # Process the template to produce our final text.
     outputText = template.render( templateVars )

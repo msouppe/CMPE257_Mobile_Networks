@@ -33,15 +33,15 @@
       <motepath>[COOJA_DIR]/examples/appmote_mobile</motepath>
       <moteclass>AppMoteMobile</moteclass>
     </motetype>
-            <mote>
+        <mote>
       <interface_config>
         org.contikios.cooja.motes.AbstractApplicationMoteType$SimpleMoteID
         <id>1</id>
       </interface_config>
       <interface_config>
         org.contikios.cooja.interfaces.Position
-                <x>_1</x>
-        <y>_1</y>
+        <x>4353</x>
+        <y>4357</y>
         <z>0.0</z>
       </interface_config>
       <motetype_identifier>apptype1</motetype_identifier>
@@ -53,8 +53,73 @@
       </interface_config>
       <interface_config>
         org.contikios.cooja.interfaces.Position
-                <x>_2</x>
-        <y>_2</y>
+        <x>1442</x>
+        <y>499</y>
+        <z>0.0</z>
+      </interface_config>
+      <motetype_identifier>apptype1</motetype_identifier>
+    </mote>
+        <mote>
+      <interface_config>
+        org.contikios.cooja.motes.AbstractApplicationMoteType$SimpleMoteID
+        <id>3</id>
+      </interface_config>
+      <interface_config>
+        org.contikios.cooja.interfaces.Position
+        <x>7945</x>
+        <y>4147</y>
+        <z>0.0</z>
+      </interface_config>
+      <motetype_identifier>apptype1</motetype_identifier>
+    </mote>
+        <mote>
+      <interface_config>
+        org.contikios.cooja.motes.AbstractApplicationMoteType$SimpleMoteID
+        <id>4</id>
+      </interface_config>
+      <interface_config>
+        org.contikios.cooja.interfaces.Position
+        <x>2423</x>
+        <y>929</y>
+        <z>0.0</z>
+      </interface_config>
+      <motetype_identifier>apptype1</motetype_identifier>
+    </mote>
+        <mote>
+      <interface_config>
+        org.contikios.cooja.motes.AbstractApplicationMoteType$SimpleMoteID
+        <id>5</id>
+      </interface_config>
+      <interface_config>
+        org.contikios.cooja.interfaces.Position
+        <x>474</x>
+        <y>533</y>
+        <z>0.0</z>
+      </interface_config>
+      <motetype_identifier>apptype1</motetype_identifier>
+    </mote>
+        <mote>
+      <interface_config>
+        org.contikios.cooja.motes.AbstractApplicationMoteType$SimpleMoteID
+        <id>6</id>
+      </interface_config>
+      <interface_config>
+        org.contikios.cooja.interfaces.Position
+        <x>2496</x>
+        <y>5262</y>
+        <z>0.0</z>
+      </interface_config>
+      <motetype_identifier>apptype1</motetype_identifier>
+    </mote>
+        <mote>
+      <interface_config>
+        org.contikios.cooja.motes.AbstractApplicationMoteType$SimpleMoteID
+        <id>7</id>
+      </interface_config>
+      <interface_config>
+        org.contikios.cooja.interfaces.Position
+        <x>5957</x>
+        <y>2584</y>
         <z>0.0</z>
       </interface_config>
       <motetype_identifier>apptype1</motetype_identifier>
@@ -135,10 +200,12 @@
  *  Mote mote, int id, String msg&#xD;
  */&#xD;
 &#xD;
-TIMEOUT(2000, log.log("last message: " + msg + "\n"));&#xD;
+TIMEOUT(200000, log.log("last message: " + msg + "\n"));&#xD;
 &#xD;
-WAIT_UNTIL(msg.equals('Hello, world'));&#xD;
-log.testOK();</script>
+WAIT_UNTIL(msg.startsWith('final cvis'));&#xD;
+log.log("*last message: " + msg + "\n");&#xD;
+log.testOK();&#xD;
+SCRIPT_KILL();</script>
       <active>false</active>
     </plugin_config>
     <width>1042</width>
