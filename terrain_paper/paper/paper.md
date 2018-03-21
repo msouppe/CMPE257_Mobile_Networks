@@ -1,6 +1,6 @@
 ---
-title: "_quiho_: Automated Performance Regression Testing Using Inferred Resource Utilization Profiles"
-shorttitle: _2_5DPopper_
+title: "Reproducibility In Network Experiments With Simulator"
+shorttitle: _portableExperiments_
 author:
 - name: Mariette Souppe
   affiliation: UC Santa Cruz
@@ -15,18 +15,37 @@ author:
   affiliation: UC Santa Cruz
   email: katia@soe.ucsc.edu
 abstract: |
- In the mobile and wireless network domain there are a lot of simulations and domain tools that are required to be produce results of an experiment. Our approach is to minimize the amount of time spent to set up experiments and assumptions for experiments and be able to reproduce experiments with available tools for any user to conduct an experiment on their own environment with no clashing dependencies. Using Popper, a convention and CLI tool, and Docker, a container image, allows any user to reproduce experiments from their peers or a research paper with the exact parameters and assumptions has the author made. This allows for easy replication and reproducibility.
+  In the mobile and wireless network domain there are a lot of simulations 
+  and domain tools that are required to be produce results of an experiment. 
+  Our approach is to minimize the amount of time spent to   set up experiments 
+  and assumptions for experiments and be able to reproduce experiments with 
+  available tools for any user to conduct an experiment on their own environment 
+  with no clashing dependencies. Using Popper, a convention and CLI tool, and 
+  Docker, a container image, allows any user to reproduce experiments from their 
+  peers or a research paper with the exact parameters and assumptions has the 
+  author made allowing for easy replication and reproducibility.
+  This methodology is used on the 
 ---
 
 # Introduction
 
+Reruning an original experiment can be a lot of work since a lot configurations and downloading software are needed in order reproduce that experiment.
+
+The approach that *Reproducible Network Experiments Using Container-Based Emulation* by Handigol, Heller [@handigol_emulator_2012] uses a container based solution. However, since it using a container-based emulation this method of reproducibility is using an emulator and not the actual simulator that was originally used to conduct the experiments. Conducting an experiment on an emulator does not have all of the bells and whistles compared to using the actual simulator. As a result, using an emulator to rerun an experiment would have some limitations.
+
+Another the tool that is also commonly used to rerun ex
+![figure caption goes in here
+](figures/dockerVm.png){#fig:dockerVm}
 
 # Methodology
+![figure caption goes in here
+](figures/workflow.png){#fig:workflow}
 
 ## Popper
+Popper 
 
 ## Docker
-In order to achieve a reproducibility model for experiments so that an experiment can truly run on any personal machine the technology tool called Docker is used to accomplish this goal. Docker, a technology container, creates an environment which packages an application with all of the application's dependencies. In the experiment, which is further explained [in section], this tool is used the experiment needs Java and Python installed on a machine in order for the whole experiment to run properly. Normally, one would have to make sure that both of these dependencies are installed on one's personal machine, however with the use of Docker an environment is created with those dependencies 
+In order to achieve a reproducibility model for experiments so that an experiment can truly run on any personal machine the technology tool called Docker is used to help accomplish this goal. Docker, a technology container, creates an environment which packages an application with all of the application's dependencies. In the experiment, which is further explained [in section], this tool is used the experiment needs Java and Python installed on a machine in order for the whole experiment to run properly. Normally, one would have to make sure that both of these dependencies are installed on one's personal machine, however with the use of Docker an environment is created with those dependencies 
 
 
 This enables the portability of an experiment which further helps achieve reproducibility. 
@@ -42,11 +61,15 @@ For the experiment, to be described in the next section, uses Cooja to conduct t
 
 ## Background
 
+The experiment where this methodology is used on the paper *Guiding Sensor-Node Deployment Over 2.5D Terrain* by Veenstra [@veenstra_terrain_2015]. The idea of this experiment is to initially place nodes on a specified terrain map with a given range. Then using the algorithm [@veenstra_terrain_2015] continually moves the nodes around the given terrain until a final cumulative visibility value has been computed. As a result, the output of the experiment is the final cumulative visibility value where of all of the nodes are placed in a way that maximizes the coverage a given terrain. 
+
+In order for this experiment to run there are certain parameters that need to be defined. The first parameter in the configuration file is a file name for different simulations. This enables to differentiate between the different simulations. The second parameter is the allows the user to choose if they would like to use a random seed which enables to produce the same sequence of random numbers for testing purposes. This parameter is a boolean where *random* can be turned on or off. Depending on whether a random seed has been initialized to True or False, if True was chosen then a random seed value will need to be initialized. If the random is set to False, then is random seed parameter will be ignored. The last parameter that needs to be defined is the number of nodes desired to put on a terrain which can range from 1 - 50 nodes. As of right now the algorithm can handle a maximum of 50 nodes. 
+
 ## Pipeline
 ![figure caption goes in here
-](figures/workflow.png){#fig:workflow}
+](figures/pipeline_docker.png){#fig:pipeline}
 
-Figure X shows the pipeline for the this experiment and all of the 
+@Fig:pipeline, we show the pipeline 
 
   * **.popper.yaml**
 
@@ -95,18 +118,6 @@ Figure X shows the pipeline for the this experiment and all of the
 
 
 
-**Correlation-based Analysis and Supervised Learning**. Correlation 
-and supervised learning approaches have been proposed in the context 
-of software testing, mainly for detecting anomalies in application 
-performance [@ibidunmoye_performance_2015]. In the former, runtime 
-performance metrics are correlated to application performance using a 
-variety of distinct metrics. In supervised learning, the goal is the 
-same (build prediction models) but using labeled datasets. Decision 
-trees are a form of supervised learning, however, given that _quiho_ 
-applies regression rather than classification techniques, it does not 
-rely on labeled datasets. Lastly, _quiho_ is not intended to be used 
-as a way of detecting anomalies, although we have not analyzed its 
-potential use in this scenario.
 
 # Future Work {#sec:conclusion}
 
@@ -146,10 +157,18 @@ and Engineering Solutions of Sandia, LLC, a wholly owned subsidiary of
 Honeywell International, Inc., for the U.S. Department of Energy’s 
 National Nuclear Security Administration under contract DE-NA0003525.
 
-[^cross]: http://cross.ucsc.edu
+@inproceedings{veenstra_terrain_2015,
+  title = {Guiding Sensor-Node Deployment Over 2.5D Terrain},
+  booktitle = {IEEE International Conference} on {{Communications}},
+  date = {2015},
+  author = {Veenstra, Kerry and Obraczka, Katia}
+}
 
 
 # References {.unnumbered}
+
+http://tiny-tera.stanford.edu/~nickm/papers/p253.pdf
+https://inrg.soe.ucsc.edu/wp-content/uploads/2015/09/icc-2015.pdf
 
 \noindent
 \vspace{-1em}
