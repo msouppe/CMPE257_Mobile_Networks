@@ -1,0 +1,381 @@
+sim_test_0.csc
+Buildfile: /home/yeyette/Kerry_Exp/pipelines/2_5DTerrain/contiki/tools/cooja/build.xml
+
+init:
+
+compile:
+
+copy configs:
+
+jar_cooja:
+      [jar] Building jar: /home/yeyette/Kerry_Exp/pipelines/2_5DTerrain/contiki/tools/cooja/dist/cooja.jar
+
+jar:
+
+init:
+
+compile:
+
+jar:
+
+init:
+
+mspsim:
+
+init:
+
+compile:
+
+jar:
+
+coffee:
+
+init:
+
+compile:
+    [javac] Compiling 8 source files to /home/yeyette/Kerry_Exp/pipelines/2_5DTerrain/contiki/tools/coffee-manager/build
+
+configs:
+
+jar:
+      [jar] Building jar: /home/yeyette/Kerry_Exp/pipelines/2_5DTerrain/contiki/tools/coffee-manager/coffee.jar
+     [copy] Copying 1 file to /home/yeyette/Kerry_Exp/pipelines/2_5DTerrain/contiki/tools/cooja/apps/mspsim/lib
+
+compile:
+
+copy:
+
+jar:
+
+init:
+
+compile:
+
+jar:
+
+init:
+
+clean:
+   [delete] Deleting directory /home/yeyette/Kerry_Exp/pipelines/2_5DTerrain/contiki/tools/cooja/apps/serial_socket/build
+
+compile:
+    [mkdir] Created dir: /home/yeyette/Kerry_Exp/pipelines/2_5DTerrain/contiki/tools/cooja/apps/serial_socket/build
+    [javac] Compiling 2 source files to /home/yeyette/Kerry_Exp/pipelines/2_5DTerrain/contiki/tools/cooja/apps/serial_socket/build
+
+jar:
+      [jar] Building jar: /home/yeyette/Kerry_Exp/pipelines/2_5DTerrain/contiki/tools/cooja/apps/serial_socket/lib/serial_socket.jar
+
+init:
+
+compile:
+
+jar:
+
+init:
+
+compile:
+
+jar:
+
+init:
+
+clean:
+   [delete] Deleting directory /home/yeyette/Kerry_Exp/pipelines/2_5DTerrain/contiki/tools/cooja/apps/powertracker/build
+
+compile:
+    [mkdir] Created dir: /home/yeyette/Kerry_Exp/pipelines/2_5DTerrain/contiki/tools/cooja/apps/powertracker/build
+    [javac] Compiling 1 source file to /home/yeyette/Kerry_Exp/pipelines/2_5DTerrain/contiki/tools/cooja/apps/powertracker/build
+
+jar:
+      [jar] Building jar: /home/yeyette/Kerry_Exp/pipelines/2_5DTerrain/contiki/tools/cooja/apps/powertracker/lib/powertracker.jar
+
+run_nogui:
+     [java]  INFO [main] (Cooja.java:1324) - > Starting Cooja
+     [java]  INFO [main] (Cooja.java:2865) - External tools default settings: /external_tools_linux_64.config
+     [java]  INFO [main] (Cooja.java:2895) - External tools user settings: /home/yeyette/.cooja.user.properties
+     [java]  INFO [main] (Simulation.java:420) - Simulation random seed: 65432
+     [java] ERROR [main] (TerrainLOSMedium.java:694) - Unable to open file './java/org/contikios/cooja/radiomediums/terrain/N37W123.hgt'
+     [java] ERROR [main] (TerrainLOSMedium.java:694) - Unable to open file './java/org/contikios/cooja/radiomediums/terrain/N37W123.hgt'
+     [java] ERROR [main] (TerrainLOSMedium.java:694) - Unable to open file './java/org/contikios/cooja/radiomediums/terrain/N37W123.hgt'
+     [java] ERROR [main] (TerrainLOSMedium.java:694) - Unable to open file './java/org/contikios/cooja/radiomediums/terrain/N37W123.hgt'
+     [java] ERROR [main] (TerrainLOSMedium.java:694) - Unable to open file './java/org/contikios/cooja/radiomediums/terrain/N37W123.hgt'
+     [java] ERROR [main] (TerrainLOSMedium.java:694) - Unable to open file './java/org/contikios/cooja/radiomediums/terrain/N37W123.hgt'
+     [java] ERROR [main] (TerrainLOSMedium.java:694) - Unable to open file './java/org/contikios/cooja/radiomediums/terrain/N37W123.hgt'
+     [java] ERROR [main] (TerrainLOSMedium.java:694) - Unable to open file './java/org/contikios/cooja/radiomediums/terrain/N37W123.hgt'
+     [java] ERROR [main] (TerrainLOSMedium.java:694) - Unable to open file './java/org/contikios/cooja/radiomediums/terrain/N37W123.hgt'
+     [java] ERROR [main] (TerrainLOSMedium.java:694) - Unable to open file './java/org/contikios/cooja/radiomediums/terrain/N37W123.hgt'
+     [java] ERROR [main] (TerrainLOSMedium.java:694) - Unable to open file './java/org/contikios/cooja/radiomediums/terrain/N37W123.hgt'
+     [java]  INFO [main] (Cooja.java:1790) - Visualized plugin was not started: class org.contikios.cooja.plugins.SimControl
+     [java]  INFO [main] (Cooja.java:1790) - Visualized plugin was not started: class org.contikios.cooja.plugins.Visualizer
+     [java]  INFO [main] (Cooja.java:1790) - Visualized plugin was not started: class org.contikios.cooja.plugins.LogListener
+     [java]  INFO [main] (Cooja.java:1790) - Visualized plugin was not started: class org.contikios.cooja.plugins.TimeLine
+     [java]  INFO [main] (Cooja.java:1790) - Visualized plugin was not started: class org.contikios.cooja.plugins.Notes
+     [java]  INFO [main] (ScriptRunner.java:429) - Test script deactivated
+     [java]  INFO [main] (LogScriptEngine.java:265) - Script timeout in 200000 ms
+     [java]  INFO [main] (ScriptRunner.java:386) - Test script activated
+     [java]  INFO [Thread-2] (Simulation.java:252) - Simulation main loop started, system time: 1521589078226
+     [java]  INFO [Thread-2] (LogScriptEngine.java:389) - Test script at 5.00%, done in 89.5 sec
+     [java]  INFO [Thread-2] (LogScriptEngine.java:389) - Test script at 10.00%, done in 75.0 sec
+     [java]  INFO [Thread-2] (LogScriptEngine.java:389) - Test script at 15.00%, done in 63.7 sec
+     [java]  INFO [Thread-2] (LogScriptEngine.java:389) - Test script at 20.00%, done in 57.9 sec
+     [java]  INFO [Thread-2] (LogScriptEngine.java:389) - Test script at 25.00%, done in 50.9 sec
+     [java]  INFO [Thread-1] (LogScriptEngine.java:309) - Test script finished
+     [java]  INFO [Thread-2] (Simulation.java:311) - Simulation main loop stopped, system time: 1521589096872	Duration: 18646 ms	Simulated time 59209 ms	Ratio 3.1754263649040007
+     [java]  INFO [AWT-EventQueue-0] (ScriptRunner.java:429) - Test script deactivated
+
+BUILD SUCCESSFUL
+Total time: 24 seconds
+sim_test_1.csc
+Buildfile: /home/yeyette/Kerry_Exp/pipelines/2_5DTerrain/contiki/tools/cooja/build.xml
+
+init:
+
+compile:
+
+copy configs:
+
+jar_cooja:
+      [jar] Building jar: /home/yeyette/Kerry_Exp/pipelines/2_5DTerrain/contiki/tools/cooja/dist/cooja.jar
+
+jar:
+
+init:
+
+compile:
+
+jar:
+
+init:
+
+mspsim:
+
+init:
+
+compile:
+
+jar:
+
+coffee:
+
+init:
+
+compile:
+    [javac] Compiling 8 source files to /home/yeyette/Kerry_Exp/pipelines/2_5DTerrain/contiki/tools/coffee-manager/build
+
+configs:
+
+jar:
+      [jar] Building jar: /home/yeyette/Kerry_Exp/pipelines/2_5DTerrain/contiki/tools/coffee-manager/coffee.jar
+     [copy] Copying 1 file to /home/yeyette/Kerry_Exp/pipelines/2_5DTerrain/contiki/tools/cooja/apps/mspsim/lib
+
+compile:
+
+copy:
+
+jar:
+
+init:
+
+compile:
+
+jar:
+
+init:
+
+clean:
+   [delete] Deleting directory /home/yeyette/Kerry_Exp/pipelines/2_5DTerrain/contiki/tools/cooja/apps/serial_socket/build
+
+compile:
+    [mkdir] Created dir: /home/yeyette/Kerry_Exp/pipelines/2_5DTerrain/contiki/tools/cooja/apps/serial_socket/build
+    [javac] Compiling 2 source files to /home/yeyette/Kerry_Exp/pipelines/2_5DTerrain/contiki/tools/cooja/apps/serial_socket/build
+
+jar:
+      [jar] Building jar: /home/yeyette/Kerry_Exp/pipelines/2_5DTerrain/contiki/tools/cooja/apps/serial_socket/lib/serial_socket.jar
+
+init:
+
+compile:
+
+jar:
+
+init:
+
+compile:
+
+jar:
+
+init:
+
+clean:
+   [delete] Deleting directory /home/yeyette/Kerry_Exp/pipelines/2_5DTerrain/contiki/tools/cooja/apps/powertracker/build
+
+compile:
+    [mkdir] Created dir: /home/yeyette/Kerry_Exp/pipelines/2_5DTerrain/contiki/tools/cooja/apps/powertracker/build
+    [javac] Compiling 1 source file to /home/yeyette/Kerry_Exp/pipelines/2_5DTerrain/contiki/tools/cooja/apps/powertracker/build
+
+jar:
+      [jar] Building jar: /home/yeyette/Kerry_Exp/pipelines/2_5DTerrain/contiki/tools/cooja/apps/powertracker/lib/powertracker.jar
+
+run_nogui:
+     [java]  INFO [main] (Cooja.java:1324) - > Starting Cooja
+     [java]  INFO [main] (Cooja.java:2865) - External tools default settings: /external_tools_linux_64.config
+     [java]  INFO [main] (Cooja.java:2895) - External tools user settings: /home/yeyette/.cooja.user.properties
+     [java]  INFO [main] (Simulation.java:420) - Simulation random seed: 87654
+     [java] ERROR [main] (TerrainLOSMedium.java:694) - Unable to open file './java/org/contikios/cooja/radiomediums/terrain/N37W123.hgt'
+     [java] ERROR [main] (TerrainLOSMedium.java:694) - Unable to open file './java/org/contikios/cooja/radiomediums/terrain/N37W123.hgt'
+     [java] ERROR [main] (TerrainLOSMedium.java:694) - Unable to open file './java/org/contikios/cooja/radiomediums/terrain/N37W123.hgt'
+     [java] ERROR [main] (TerrainLOSMedium.java:694) - Unable to open file './java/org/contikios/cooja/radiomediums/terrain/N37W123.hgt'
+     [java] ERROR [main] (TerrainLOSMedium.java:694) - Unable to open file './java/org/contikios/cooja/radiomediums/terrain/N37W123.hgt'
+     [java] ERROR [main] (TerrainLOSMedium.java:694) - Unable to open file './java/org/contikios/cooja/radiomediums/terrain/N37W123.hgt'
+     [java] ERROR [main] (TerrainLOSMedium.java:694) - Unable to open file './java/org/contikios/cooja/radiomediums/terrain/N37W123.hgt'
+     [java] ERROR [main] (TerrainLOSMedium.java:694) - Unable to open file './java/org/contikios/cooja/radiomediums/terrain/N37W123.hgt'
+     [java] ERROR [main] (TerrainLOSMedium.java:694) - Unable to open file './java/org/contikios/cooja/radiomediums/terrain/N37W123.hgt'
+     [java] ERROR [main] (TerrainLOSMedium.java:694) - Unable to open file './java/org/contikios/cooja/radiomediums/terrain/N37W123.hgt'
+     [java] ERROR [main] (TerrainLOSMedium.java:694) - Unable to open file './java/org/contikios/cooja/radiomediums/terrain/N37W123.hgt'
+     [java]  INFO [main] (Cooja.java:1790) - Visualized plugin was not started: class org.contikios.cooja.plugins.SimControl
+     [java]  INFO [main] (Cooja.java:1790) - Visualized plugin was not started: class org.contikios.cooja.plugins.Visualizer
+     [java]  INFO [main] (Cooja.java:1790) - Visualized plugin was not started: class org.contikios.cooja.plugins.LogListener
+     [java]  INFO [main] (Cooja.java:1790) - Visualized plugin was not started: class org.contikios.cooja.plugins.TimeLine
+     [java]  INFO [main] (Cooja.java:1790) - Visualized plugin was not started: class org.contikios.cooja.plugins.Notes
+     [java]  INFO [main] (ScriptRunner.java:429) - Test script deactivated
+     [java]  INFO [main] (LogScriptEngine.java:265) - Script timeout in 200000 ms
+     [java]  INFO [main] (ScriptRunner.java:386) - Test script activated
+     [java]  INFO [Thread-2] (Simulation.java:252) - Simulation main loop started, system time: 1521589101615
+     [java]  INFO [Thread-2] (LogScriptEngine.java:389) - Test script at 5.00%, done in 164.1 sec
+     [java]  INFO [Thread-2] (LogScriptEngine.java:389) - Test script at 10.00%, done in 151.2 sec
+     [java]  INFO [Thread-2] (LogScriptEngine.java:389) - Test script at 15.00%, done in 146.5 sec
+     [java]  INFO [Thread-2] (LogScriptEngine.java:389) - Test script at 20.00%, done in 125.9 sec
+     [java]  INFO [Thread-2] (LogScriptEngine.java:389) - Test script at 25.00%, done in 108.6 sec
+     [java]  INFO [Thread-1] (LogScriptEngine.java:309) - Test script finished
+     [java]  INFO [Thread-2] (Simulation.java:311) - Simulation main loop stopped, system time: 1521589138222	Duration: 36607 ms	Simulated time 51071 ms	Ratio 1.3951156882563445
+     [java]  INFO [AWT-EventQueue-0] (ScriptRunner.java:429) - Test script deactivated
+
+BUILD SUCCESSFUL
+Total time: 41 seconds
+sim_test_2.csc
+Buildfile: /home/yeyette/Kerry_Exp/pipelines/2_5DTerrain/contiki/tools/cooja/build.xml
+
+init:
+
+compile:
+
+copy configs:
+
+jar_cooja:
+      [jar] Building jar: /home/yeyette/Kerry_Exp/pipelines/2_5DTerrain/contiki/tools/cooja/dist/cooja.jar
+
+jar:
+
+init:
+
+compile:
+
+jar:
+
+init:
+
+mspsim:
+
+init:
+
+compile:
+
+jar:
+
+coffee:
+
+init:
+
+compile:
+    [javac] Compiling 8 source files to /home/yeyette/Kerry_Exp/pipelines/2_5DTerrain/contiki/tools/coffee-manager/build
+
+configs:
+
+jar:
+      [jar] Building jar: /home/yeyette/Kerry_Exp/pipelines/2_5DTerrain/contiki/tools/coffee-manager/coffee.jar
+     [copy] Copying 1 file to /home/yeyette/Kerry_Exp/pipelines/2_5DTerrain/contiki/tools/cooja/apps/mspsim/lib
+
+compile:
+
+copy:
+
+jar:
+
+init:
+
+compile:
+
+jar:
+
+init:
+
+clean:
+   [delete] Deleting directory /home/yeyette/Kerry_Exp/pipelines/2_5DTerrain/contiki/tools/cooja/apps/serial_socket/build
+
+compile:
+    [mkdir] Created dir: /home/yeyette/Kerry_Exp/pipelines/2_5DTerrain/contiki/tools/cooja/apps/serial_socket/build
+    [javac] Compiling 2 source files to /home/yeyette/Kerry_Exp/pipelines/2_5DTerrain/contiki/tools/cooja/apps/serial_socket/build
+
+jar:
+      [jar] Building jar: /home/yeyette/Kerry_Exp/pipelines/2_5DTerrain/contiki/tools/cooja/apps/serial_socket/lib/serial_socket.jar
+
+init:
+
+compile:
+
+jar:
+
+init:
+
+compile:
+
+jar:
+
+init:
+
+clean:
+   [delete] Deleting directory /home/yeyette/Kerry_Exp/pipelines/2_5DTerrain/contiki/tools/cooja/apps/powertracker/build
+
+compile:
+    [mkdir] Created dir: /home/yeyette/Kerry_Exp/pipelines/2_5DTerrain/contiki/tools/cooja/apps/powertracker/build
+    [javac] Compiling 1 source file to /home/yeyette/Kerry_Exp/pipelines/2_5DTerrain/contiki/tools/cooja/apps/powertracker/build
+
+jar:
+      [jar] Building jar: /home/yeyette/Kerry_Exp/pipelines/2_5DTerrain/contiki/tools/cooja/apps/powertracker/lib/powertracker.jar
+
+run_nogui:
+     [java]  INFO [main] (Cooja.java:1324) - > Starting Cooja
+     [java]  INFO [main] (Cooja.java:2865) - External tools default settings: /external_tools_linux_64.config
+     [java]  INFO [main] (Cooja.java:2895) - External tools user settings: /home/yeyette/.cooja.user.properties
+     [java]  INFO [main] (Simulation.java:420) - Simulation random seed: 87321
+     [java] ERROR [main] (TerrainLOSMedium.java:694) - Unable to open file './java/org/contikios/cooja/radiomediums/terrain/N37W123.hgt'
+     [java] ERROR [main] (TerrainLOSMedium.java:694) - Unable to open file './java/org/contikios/cooja/radiomediums/terrain/N37W123.hgt'
+     [java] ERROR [main] (TerrainLOSMedium.java:694) - Unable to open file './java/org/contikios/cooja/radiomediums/terrain/N37W123.hgt'
+     [java] ERROR [main] (TerrainLOSMedium.java:694) - Unable to open file './java/org/contikios/cooja/radiomediums/terrain/N37W123.hgt'
+     [java] ERROR [main] (TerrainLOSMedium.java:694) - Unable to open file './java/org/contikios/cooja/radiomediums/terrain/N37W123.hgt'
+     [java] ERROR [main] (TerrainLOSMedium.java:694) - Unable to open file './java/org/contikios/cooja/radiomediums/terrain/N37W123.hgt'
+     [java] ERROR [main] (TerrainLOSMedium.java:694) - Unable to open file './java/org/contikios/cooja/radiomediums/terrain/N37W123.hgt'
+     [java] ERROR [main] (TerrainLOSMedium.java:694) - Unable to open file './java/org/contikios/cooja/radiomediums/terrain/N37W123.hgt'
+     [java] ERROR [main] (TerrainLOSMedium.java:694) - Unable to open file './java/org/contikios/cooja/radiomediums/terrain/N37W123.hgt'
+     [java] ERROR [main] (TerrainLOSMedium.java:694) - Unable to open file './java/org/contikios/cooja/radiomediums/terrain/N37W123.hgt'
+     [java] ERROR [main] (TerrainLOSMedium.java:694) - Unable to open file './java/org/contikios/cooja/radiomediums/terrain/N37W123.hgt'
+     [java]  INFO [main] (Cooja.java:1790) - Visualized plugin was not started: class org.contikios.cooja.plugins.SimControl
+     [java]  INFO [main] (Cooja.java:1790) - Visualized plugin was not started: class org.contikios.cooja.plugins.Visualizer
+     [java]  INFO [main] (Cooja.java:1790) - Visualized plugin was not started: class org.contikios.cooja.plugins.LogListener
+     [java]  INFO [main] (Cooja.java:1790) - Visualized plugin was not started: class org.contikios.cooja.plugins.TimeLine
+     [java]  INFO [main] (Cooja.java:1790) - Visualized plugin was not started: class org.contikios.cooja.plugins.Notes
+     [java]  INFO [main] (ScriptRunner.java:429) - Test script deactivated
+     [java]  INFO [main] (LogScriptEngine.java:265) - Script timeout in 200000 ms
+     [java]  INFO [main] (ScriptRunner.java:386) - Test script activated
+     [java]  INFO [Thread-2] (Simulation.java:252) - Simulation main loop started, system time: 1521589142952
+     [java]  INFO [Thread-2] (LogScriptEngine.java:389) - Test script at 5.00%, done in 193.0 sec
+     [java]  INFO [Thread-2] (LogScriptEngine.java:389) - Test script at 10.00%, done in 260.1 sec
+     [java]  INFO [Thread-2] (LogScriptEngine.java:389) - Test script at 15.00%, done in 263.3 sec
+     [java]  INFO [Thread-2] (LogScriptEngine.java:389) - Test script at 20.00%, done in 233.5 sec
+     [java]  INFO [Thread-2] (LogScriptEngine.java:389) - Test script at 25.00%, done in 205.5 sec
+     [java]  INFO [Thread-1] (LogScriptEngine.java:309) - Test script finished
+     [java]  INFO [Thread-2] (Simulation.java:311) - Simulation main loop stopped, system time: 1521589211816	Duration: 68864 ms	Simulated time 50487 ms	Ratio 0.7331406830855018
+     [java]  INFO [AWT-EventQueue-0] (ScriptRunner.java:429) - Test script deactivated
+
+BUILD SUCCESSFUL
+Total time: 1 minute 13 seconds
