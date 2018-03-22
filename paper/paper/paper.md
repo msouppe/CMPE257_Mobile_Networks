@@ -1,5 +1,5 @@
 ---
-title: "Reproducibility In Network Experiments With Simulator"
+title: "Reproducibility in Network Experiments with a Simulator"
 shorttitle: _portableExperiments_
 author:
 - name: Mariette Souppe
@@ -33,9 +33,15 @@ Reruning an original experiment can be a lot of work since a lot configurations 
 
 The approach that *Reproducible Network Experiments Using Container-Based Emulation* by Handigol, Heller [@handigol_emulator_2012] uses a container based solution. However, since it using a container-based emulation this method of reproducibility is using an emulator and not the actual simulator that was originally used to conduct the experiments. Conducting an experiment on an emulator does not have all of the bells and whistles compared to using the actual simulator. As a result, using an emulator to rerun an experiment would have some limitations.
 
-Another the tool that is also commonly used to rerun ex
+Another the tool that is commonly used to rerun experiments is using a virtual machine. Virtual machines are also capable of running the appropriate software and operating system without having to use an emulator which means that there are no probable experiment limitations as in [@handigol_emulator_2012]. However, in order configure a virtual machine with all of the correct dependencies and environments to replicate an experiment, there is still some ambiguity in terms of the exact settings of the original experiment. Using Docker, which is a container that packages an environment and modules, takes away this ambiguity. 
+
 ![figure caption goes in here
 ](figures/dockerVm.png){#fig:dockerVm}
+
+As you can see in the @Fig:dockerVm there is a difference between the virtual machine and the docker infrastructure. In a Docker container, it only contains the application itself and libraries for that experiment since the Docker layer takes care of the experiment environment. In a virtual machine an operating system has to first be defined before running the application.
+
+
+The rest of the paper is outlined to show the methodology and tools that are used to reproduce this experiment, an example where this methodology is used in an actual experiment, and lastly our results of reproducing exact results from the original author's results.
 
 # Methodology
 ![figure caption goes in here
@@ -50,9 +56,6 @@ In order to achieve a reproducibility model for experiments so that an experimen
 
 This enables the portability of an experiment which further helps achieve reproducibility. 
   
-
-## Contiki
-
 
 ## Cooja
 For the experiment, to be described in the next section, uses Cooja to conduct the main experiment. Cooja is a network simulator that is used in wireless sensor networks which allows to simulate small or large networks.
@@ -119,32 +122,11 @@ In order for this experiment to run there are certain parameters that need to be
 
 
 
-# Future Work {#sec:conclusion}
+# Results {#sec:result}
 
-The main limitation in _quiho_ is the requirement of having to execute 
-a test on more than one machine in order to obtain IRUPs. On the other 
-hand, we can avoid having to run `stress-ng` every time the 
-application gets tested by integrating this into the infrastructure 
-(e.g., system administrators can run `stress-ng` once a day or once a 
-week and make this information for every machine available to users).
+# Conclusion {#sec:conclusion}
 
-We are currently working in adapting this approach to profile 
-distributed and multi-tiered applications. We also plan to analyze the 
-viability of applying _quiho_ in multi-tenant configurations and to 
-profile long-running (multi-stage) applications such as a web-service 
-or big-data applications. In these cases, we would define windows of 
-time and apply _quiho_ to each. The main challenge in this scenario is 
-to automatically define the windows in such a way that we can get 
-accurate profiles.
 
-In the era of cloud computing, even the most basic computer systems 
-are complex multi-layered pieces of software, whose performance 
-properties are difficult to comprehend. Having complete understanding 
-of the performance behavior of an application, considering the 
-parameter space (workloads, multi-tenancy, etc.) is challenging. One 
-application of _quiho_ we have in mind is to couple it with automated 
-black-box (or even gray-box) testing frameworks to improve our 
-understanding of complex systems.
 
 **Acknowledgments**: We would like to thank Bernardo Gonzalez for his 
 feedback on a preliminary version of this paper, as well as all the 

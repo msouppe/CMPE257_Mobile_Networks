@@ -1,8 +1,0 @@
-Sending build context to Docker daemon  2.048kB
-Step 1/2 : FROM anapsix/alpine-java:8_jdk_unlimited
- ---> ed5dc5b3e72f
-Step 2/2 : RUN apk --no-cache add python py-pip apache-ant && pip install --upgrade pip && pip install java-random pyyaml jinja2
- ---> Using cache
- ---> 8952b514504f
-Successfully built 8952b514504f
-Successfully tagged terrain:latest
