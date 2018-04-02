@@ -1,19 +1,25 @@
 ---
-title: "Reproducing 2.5D Terrain Deployment With Popper"
+title: "Reproducing Network Experiments With Popper"
 shorttitle: _portableExperiments_
 author:
+- name: Andrea David
+  affiliation: UC Santa Cruz
+  email: andavid@ucsc.edu
 - name: Mariette Souppe
   affiliation: UC Santa Cruz
   email: msouppe@ucsc.edu
-- name: Kerry Veenstra 
-  affiliation: UC Santa Cruz
-  email: veenstra@ucsc.edu
-- name: Ivo Jimenez
-  affiliation: UC Santa Cruz
-  email: ivo.jimenez@ucsc.edu
 - name: Katia Obraczka
   affiliation: UC Santa Cruz
   email: katia@soe.ucsc.edu
+- name: Ivo Jimenez
+  affiliation: UC Santa Cruz
+  email: ivo.jimenez@ucsc.edu
+- name: Sam Mansfield 
+  affiliation: UC Santa Cruz
+  email: smansfie@ucsc.edu
+- name: Kerry Veenstra 
+  affiliation: UC Santa Cruz
+  email: veenstra@ucsc.edu
 abstract: |
   In the mobile and wireless network domain there are a lot of simulations 
   and domain tools that are required to be produce results for an experiment. 
