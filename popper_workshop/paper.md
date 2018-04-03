@@ -21,20 +21,22 @@ author:
   affiliation: UC Santa Cruz
   email: veenstra@ucsc.edu
 abstract: |
-  In the mobile and wireless network domain there are a lot of simulations 
-  and domain tools that are required to be produce results for an experiment. 
-  Our approach is to minimize the amount of time spent to set up experiments 
-  and assumptions. Furthermore, enable a user to reproduce results with 
-  available tools on their own environment with no clashing dependencies. 
-  In this paper a convention client tool called Popper is used to make reproducibility
-  less of a daunting task. Using Popper, a workflow is developed so a user only needs to define
-  values for predefined parameters. Lastly, this workflow is tested on an existing experiment
-  and compares the results from the original paper and reproduced results.
+  Need abstract
 ---
 
 # Introduction
-Rerunning an original experiment can be a lot of work since a lot configurations and downloading software are needed in order to reproduce any experiment. In the scientific community, it is important to be able to reproduce existing research paper results to further improve upon or understand that idea. 
+The ability to reproduce previous experiments is one of the most important aspects in scientific research. However, as scientific discovery is rapidly advancing, researchers are pressured to rush publication of new findings and present these breakthrough discoveries at conferences. Lately, there has been a growing concern in the research community about results that cannot be reproduced and thus cannot be verified. This is partially due to the lack of incentive for researchers to revoke experiments that were unable to be reproduced [??]. Moreover, replicating scientific experiments in the field of Computer Science and Computer Engineering is a challenging task. One of the biggest setbacks of reproducibility is the complexity that comes with rebuilding the same environment in which the original experiment was conducted [??]. Rerunning an original experiment can be strenuous since a lot configuration and downloading software are needed in order to reproduce any experiment. In the scientific community, it is important to be able to reproduce existing research paper results to further improve upon and understand conveyed ideas.
 
+Network simulators were not designed with the concept of reproducibility which makes the automation and configuration of simulations more difficult especially with trying to automate without a GUI.
+
+
+
+
+# Related Work
+ReproZip is another tool that allows for easy reproduction of experiments from command-line executions. While executing the experiment in its original environment, ReproZip tracks operating system calls and packs necessary components of the experiment into a file. In the unpacking step, ReproZip reproduces the experiment form that file. ReproZip, however, can only package experiments that are executed on Linux.
+
+
+# Popper Versus Exisiting Tools 
 ![As you can see there is a difference between the virtual machine and the docker infrastructure. In a Docker container, it only contains the application itself and libraries for that experiment since the Docker layer takes care of the experiment environment. In a virtual machine an operating system has to first be defined before running the application.
 ](figures/dockerVm.png){#fig:dockerVm}
 	
@@ -44,99 +46,41 @@ Docker is that modules and packages can also be defined when building the enviro
 
 However, in order configure a virtual machine with all of the correct dependencies and environments to replicate an experiment, there is still some ambiguity in terms of the exact settings of the original experiment. Using Docker and packaging an environment and extra modules, eliminates this ambiguity. @Fig:dockerVm shows the infrastructure of these tools.
 
-The rest of the paper is outlined to show the methodology and tools that are used to reproduce an experiment, an example where this methodology is used in an actual experiment, and lastly our results of reproducing results from the original author's.
+# Experiment Examples
 
-# Methodology
-![Here is the workflow when using Docker. First, the values of the parameters of the experiment have to be defined by the user. Second, a Docker container is created with the entire environment, modules, and packages for the experiment to run. In the third step, the simulation template gets pulled in to the fourth step when creates *N* amount of simulations that the user has defined. Fifth, those *N* simulations are run and lastly the Cooja.testlog are outputted into the output folder to further evaluate the final result.
-](figures/workflow.png){#fig:workflow}
+## Cooja Simulator
+Cooja is used to conduct the main experiments. Cooja is a network simulator that is used in wireless sensor networks which allows simulations of small or large networks. Contiki is also used in the experiment but only used for its thin layer operating system to run Cooja. Cooja is a tool of Contiki as you can see in the file directory where the experiment is run. 
 
-## Popper
-As mentioned previously, Popper is a convention and CLI tool for conducting experiments. Popper helps keep experiments in an organized manner through its convention and uses Git to keep experiments self-contained. This allows for easy sharing so that others can reproduce original results. 
+## TerrainLOS
+One of the experiments that are reproduced in this paper is based on Sam Mansfield’s paper “Modeling Communication Over Terrain for Realistic Simulation of Outdoor Sensor Network Deployments” [??]. TerrainLOS is an outdoor terrain propagation model that aims to create a more accurate simulation of outdoor sensor network communication. When it comes to simulating sensor networks, terrain plays a significant role in evaluating the performance of network functions. Most simulation platforms, however, either assume a completely flat terrain or tend to use very simplistic channel propagation models that do not represent realistic outdoor terrain conditions. To present a more accurate outdoor simulation model, TerrainLOS uses common geographical height maps, called Digital Elevation Models (DEMs). These data files are used in experimental evaluations to investigate communication between nodes under realistic conditions. TerrainLOS describes the Average Cumulative Visibility (ACV) as a metric to characterize network connectivity over the terrain classified in the DEMs. ACV denotes the percentage of sensor nodes that are visible in an area from all locations on a given map. For example, 100% ACV means that every node is visible from all locations, which further implies the presence of a flat terrain. In the experimental methodology, the authors of TerrainLOS refer to the average number of nodes in an area as the average population, and the average number of nodes that a given node can communicate with is referred to as the average node density. These two metrics are used in determining network connectivity. This experiment focuses on automating the execution and re-execution of one of the experimental simulations performed in the paper, called Experimental Connectivity. This experiment focuses on experimentally evaluating the accuracy of connectivity results based on the models presented in the paper. The connectivity results are plotted using the average cumulative visibility metric and population size. 
 
-When first initializing Popper, a directory called Pipeline is created along with a nested directory. This nested directory is how one names the experiment, but it is the contents inside this directory that is important. This directory contains the empty scripts; setup.sh, run.sh, post-run.sh, validate.sh, and teardown.sh. These scripts isolate different steps when making an experiment and helps organize the experiment. It is important to note that *not* all of the scripts are needed for every experiment, so scripts that are not going to be used can be removed from the pipeline and Popper will be able to interpret that. After the experiment has been configured, the experiment can then run with the command *popper check*. This will run all of the scripts that are available.
 
-## Docker
-In order to achieve a reproducibility model for experiments so that an experiment can truly run on any personal machine, the technology tool called Docker is used to help accomplish this goal. Docker, a technology container, creates an environment which packages an application with all of the application's dependencies. In the experiment, which is further explained in the next section, Docker is used to aid with Java, Contiki, and Python environments installations since the experiment relies on these to run properly. Normally, one would have to make sure that all of these environments are installed on one's personal machine, however, Docker takes care of this issue.
+## 2.5D Deployment on TerrainLOS
+The experiment where this methodology is used on is based on the paper Guiding Sensor-Node Deployment Over 2.5D Terrain by Veenstra. The idea of this experiment is to initially place nodes on a specified terrain map within a predetermined range. Then using the algorithm from the paper, nodes continually move around the given terrain until a final cumulative visibility value has been computed. As a result, the output of the experiment is a final cvis value where of all of the nodes are placed in a way that maximizes the coverage a given terrain.
 
-This enables portability of an experiment which further helps achieve reproducibility. 
-  
-## Cooja
-Cooja is used to conduct the main experiment. Cooja is a network simulator that is used in wireless sensor networks which allows simulations of small or large networks. Contiki is also used in the experiment but only used for its thin layer operating system to run Cooja. Cooja is a tool of Contiki as you can see in the file directory where the experiment is run. This is why Docker needs to include Contiki when building the environment.
+The old way Kerry’s experiment was conducted was that he would have to start the GUI, configure a few parameters such as the number of nodes, terrain, and transmitting range, then initial a script, run the script, and wait for final results. For each simulation these manual steps had to done. 
 
-# Example
+# Popperization
 
 ## Background
-The experiment where this methodology is used on is based on the paper *Guiding Sensor-Node Deployment Over 2.5D Terrain* by Veenstra [@veenstra_terrain_2015]. The idea of this experiment is to initially place nodes on a specified terrain map within a predetermined range. Then using the algorithm [@veenstra_terrain_2015], nodes continually move around the given terrain until a final cumulative visibility value has been computed. As a result, the output of the experiment is a *final cvis* value where of all of the nodes are placed in a way that maximizes the coverage a given terrain. 
 
-In order for this experiment to run there are certain parameters that need to be defined. The first parameter in the configuration file is a file name for different simulations. This enables to differentiate between the different simulations and output logs. The second parameter allows the user to choose if they would like to use a random seed which enables to produce the same sequence of random numbers for testing purposes. This parameter is a boolean where *random* can be turned on or off. Depending on whether a random seed has been initialized to True or False, if True was chosen then a random seed value will need to be initialized. If the random is set to False, then the random seed parameter will be ignored. The next parameter that needs to be defined is the number of nodes desired to put on a terrain which can range from 1 - 50 nodes. As of right now the algorithm can handle a maximum of 50 nodes. The next two parameters are the transmitting range and interference range which are the same. Lastly, the terrain of the experiment can also be defined here as well.
+## TerrainLOS
+To run TerrainLOS in COOJA, without using Popper, a user would have to go through the same steps I did when I tried replicating Sam’s results on my computer. First, they would have to download Instant Contiki, install a Virtual Machine to start Contiki. Then, they would have to download all the necessary files and dependencies from Sam’s GitHub page, create a jar file of TerrainLOS, run the simulator, and load it into COOJA. This is a very time-consuming task and the user might even receive error messages when they try to run the project the first time. Using Popper is a much more effortless way to re-execute someone’s experiment without the need to have the original author explain the steps they need to take to run the project. 
 
-## Pipeline
-![Experiment Pipeline 
-](figures/pipeline_docker.png){#fig:pipeline}
+In my Popper pipeline, I had two stages – the run stage and the post-run stage. My setup stage was done using Docker, by creating an image of the Contiki operating system including the COOJA simulator in a Dockerfile. In the run stage, I ran Sam’s python script called calc_experimental_connectivity.py that takes ACV and population as it’s input. The run stage runs the experiment with population of 1, 10, 30, and 80, and ACV of 10-100 in increments of ten. The results of these runs will be put into log files. These log files are then read with the graph_max_density_connectivity.py script in the post-run stage. At the end of the run the graph of the experiment will be saved as “Connectivity.png” file under Connectivity. This 3 “popperized” experiment can be now run by just simply using the command “popper check” inside the pipeline.
 
-@Fig:pipeline shows the pipeline for the experiment and below describes the functionality of each part of the pipeline: 
 
-  * **.popper.yaml**
+## 2.5D Deployment on TerrainLOS
+With the popper version, the user only has to configure one file for multiple simulations where popper will run each simulation individually and then output the final results.
 
-    This file consists the ordering in which popper executes the main scripts; setup.sh, run.sh, post-run.sh to run the entire experiment without extra input.
+Workflow of automation of experiment: First, the values of the parameters of the experiment have to be defined by the user. Second, a Docker container is created with the entire environment, modules, and packages for the experiment to run. In the third step, the simulation template gets pulled in to the fourth step when creates N amount of simulations that the user has defined. Fifth, those N simulations are run and lastly the Cooja.testlog are outputted into the output folder to further evaluate the final result.
 
-  * **.git**
-
-    Currently the full experiment is not on Git, which it will be soon, however having the whole pipeline on Git will achieve the portable and reproducibility goal. Any user will be able to clone the repository and be able to reproduce the experiment without having to individually download dependencies.
-
-  * **Dockerfile**
-
-    Retrieves the docker image with Contiki, Javam, Python, pip, java-random, pyyaml, and jinja2.
-
-  * **setup.sh**
-
-    Builds a docker container with the environments, dependencies, and packages that are needed to run the pipeline.
-
-  * **run.sh**
-
-    Runs *N* simulations from the simulations directory.
-
-  * **sim_config.yaml**
-
-    Values of the parameters are configured by the user.
-
-  * **sim_template.csc**
-
-    Simulation template where configured parameters are substituted per simulation.
-
-  * **create_sim_files.py**
-
-    Creates *N* amount of simulations defined in the sim_config.yaml, merging the simulation configuration file and template file. 
-
-  * **simulations directory**
-
-    Contains all of the simulation files.
-
-  * **output directory**
-
-    Contains all of the output logs for every simulation.
-
-  * **contiki/tools/cooja**
-
-    Contains the main experiment code. 
-
-# Results {#sec:result}
-
-![Original results from the 2.5D Terrain Experiment
-](figures/original.png){#fig:origin}
-
-![Reproduced results using Popper
-](figures/reproduce.png){#fig:new}
-
-The final output obtained from the experiment is the final cumulative visibility value from the final placement of the nodes according to the specified terrain in the experiment.
-
-In @Fig:origin and @Fig:new we can see that the results are *not* exactly the same. Some of the reproduced results do not have all of the terrains as in the orginal results because not all of the terrains were available while reproducing the experiment. Furthermore, the values in @Fig:new are higher than the values in @Fig:origin. This is because the original paper was programmed in C++ and since then the author has translated the code into a Cooja environment, there is a difference in the end result.
-
-The main take away from these results, despite some missing elements, is that the trend of both @Fig:origin and @Fig:new are similar. 
 
 # Conclusion {#sec:conclusion}
+Researchers usually don’t have the opportunity to reach out to the author of an experiment when rebuilding their work in the environment the original project was built in. This process can be time-consuming and often impossible. The Popper convention offers a very straight forward way to implement reproducibility for scientific research articles.
 
-In an ideal world, rerunning an experiment would not have to be a headache due to the numerous configurations, dependencies, and ambiguity of the original experiment. Using Popper and extra tools it was possible to obtain the results needed to achieve the initial goal.
+It is harder to try to make a fully finished experiment reproducible, especially if the person trying to reproduce the experiment is not the original author of that experiment. Reproducibility should be kept in mind at the start of an experiment. Reproducing small sections of the code is easier than trying to reproduce code that has already been completed. 
+
 
 
 
