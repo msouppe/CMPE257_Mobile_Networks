@@ -15,8 +15,10 @@ For a quickstart guide on how to use the CLI, look [here](http://popper.readthed
 
 
 ### Running The Experiment
+```bash
 git clone https://github.com/msouppe/CMPE257_Mobile_Networks.git
 
 cd pipelines/terrain
 
 popper run
+```
