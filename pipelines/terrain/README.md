@@ -12,6 +12,7 @@ popper --help
 For a quickstart guide on how to use the CLI, look [here](http://popper.readthedocs.io/en/latest/protocol/getting_started.html#quickstart-guide)
 
 ### Running The Experiment
+* Make sure using popper version 0.6.0
 ```bash
 git clone https://github.com/msouppe/CMPE257_Mobile_Networks.git
 
