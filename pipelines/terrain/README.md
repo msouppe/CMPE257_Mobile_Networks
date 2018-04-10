@@ -1,7 +1,13 @@
 # Sensor Network Deployment Over 2.5D Terrain
 
 ## Installing Popper
+See [here](cli/) for instructions on how to install the CLI tool. Once 
+installed, to get an overview and list of commands check out the 
+command line help:
 
+```bash
+popper --help
+```
 
 ## Install Docker
 
