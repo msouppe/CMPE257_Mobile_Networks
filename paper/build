@@ -13,9 +13,9 @@ docker run \
   -v `pwd`/../pipelines:/root/pipelines:z \
   -v `pwd`/out:/root/out:z \
   ivotron/pandoc:1.19.2.1 \
-    --metadata acmart=true \
-    --metadata documentclass=acmart \
-    --metadata classoption=sigconf \
+    --metadata ieeetran=true \
+    --metadata documentclass=ieeetran \
+    --metadata classoption=conference \
     --metadata natbib=false \
     --metadata usedefaultspacing=true \
     --metadata numbersections=true \
