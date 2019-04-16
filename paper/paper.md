@@ -20,23 +20,24 @@ author:
   affiliation: UC Santa Cruz
   email: veenstra@ucsc.edu
 abstract: |
-  Computer network research experiments can be broadly grouped in two 
-  categories: simulated and real-world experiments. Simulation 
-  frameworks and experiment testbeds, respectively, are commonly used 
-  as the platforms on which these experiments are carried out. In many 
-  cases, given the nature of computer networks experiments, properly 
-  configuring these simulation and real-world platforms is a complex 
-  and time-consuming task, which makes replicating and validating 
-  research results quite challenging. This complexity can be reduced 
-  by leveraging tools that enable experiment reproducibility. In this 
-  paper, we show how a recently proposed reproducibility tool called 
-  Popper facilitates reproducibility of networking experiments. In 
-  particular, we detail the steps taken to implement the experiments 
-  corresponding to two published research articles. Using Popper, we 
-  develop two workflows and test it on existing experiments, comparing 
-  results from the original and the corresponding reproduced outcome. 
-  We also provide a list of lessons we learned throughout this 
-  process.
+  Computer network research experiments can be broadly grouped in 
+  three categories: simulated, controlled and real-world experiments. 
+  Simulation frameworks, experiment testbeds and measurement tools, 
+  respectively, are commonly used as the platforms for carrying out 
+  network experiments. In many cases, given the nature of computer 
+  networks experiments, properly configuring these platforms is a 
+  complex and time-consuming task, which makes replicating and 
+  validating research results quite challenging. This complexity can 
+  be reduced by leveraging tools that enable experiment 
+  reproducibility. In this paper, we show how a recently proposed 
+  reproducibility tool called Popper facilitates reproducibility of 
+  networking experiments. In particular, we detail the steps taken to 
+  reproduce experiments in two published articles that rely on 
+  simulations. The outcome of this exercise is a generic workflow for 
+  carrying out this type of experiments. In addition, we present two 
+  additional Popper workflows for running experiments on experiment 
+  testbeds and real-world measurement gathering. We close by providing 
+  a list of lessons we learned throughout this process.
 ---
 
 # Introduction
@@ -45,23 +46,23 @@ The ability to reproduce previous experiments is one of the most
 important aspects in scientific research. However, as scientific 
 discovery is rapidly advancing, researchers are pressured to rush 
 publication of new findings and breakthroughs. This is especially true 
-in Computer Science and Engineering where knowledge and technology 
+in computer science and engineering where knowledge and technology 
 have been advancing overwhelmingly fast and the push to publish new 
 results is even stronger. Lately, however, there has been growing 
-concern in the experimental computer science and engineering research 
-community about results that cannot be reproduced and thus cannot be 
-verified [@kurose_2016]. There is increasing consensus about the 
-importance of being able to reproduce research results to better 
-understand conveyed ideas and further improve upon them.
+concern in this community about results that cannot be reproduced and 
+thus cannot be verified [@kurose_2016]. There is increasing consensus 
+about the importance of being able to reproduce research results to 
+better understand conveyed ideas and further improve upon them. 
+Computer networks research is not an exception and
 
-Replicating scientific experiments, however, is a challenging task. In 
+Reproducing scientific experiments, however, is a challenging task. In 
 experimental computer science and engineering, more generally, and in 
 computer networking, more specifically, one of the biggest setbacks of 
 reproducibility is the complexity that comes with rebuilding the same 
 environment in which the original experiment was conducted. Many 
 experiments in this field rely on expensive hardware and software. 
 While simulation tools greatly facilitate conducting experiments when 
-compared to real hardware testbed experimentation, rerunning an 
+compared to real hardware testbed experimentation, re-running an 
 experiment from scratch can be strenuous. Network simulation 
 experiments often come with the cost of extensive software 
 configuration and package installation upon attempting to reproduce 
@@ -122,10 +123,11 @@ details our experience with the goal of serving as a reference to
 other researchers seeking a way to make their experiments 
 reproducible. The contributions of our work include:
 
-* Applying Popper in the domain of computer networks, more 
-  specifically simulation experiments.
-* A methodology template for others to create reproducible.
-* Lessons learned.
+  * Applying Popper in the domain of computer networks.
+  * A methodology template for others to create reproducible 
+    experiments in simulated networks, as well as experimental 
+    testbeds.
+  * Lessons learned.
 
 The remainder of the paper is organized as follows, Section 2 gives a 
 brief introduction to Popper, the tool that is used to help make 
@@ -140,13 +142,24 @@ lessons learned that we hope will help other practitioners producing
 this type of networking experiments.
 
 # Popper {#sec:popper_tool}
-Popper is a convention for creating reproducible scientific articles and experiments [@jimenez_2017_popper_ci]. The convention is based on the open source software (OSS) development model, using the DevOps approach to implement different stages of execution. The Popper Convention creates self-contained experiments that do not rely on libraries and dependencies other than what is already inside the Popper-compliant or “popperized” experiment. To achieve reproducibility, Popper uses pipelines containing shell scripts that execute the original experiment. An example of set of steps that an experimenter can follow to help achieve reproducibility are the following:
- 
-1. Experimental design and pipeline definition; 
-2. Selecting Software selection; 
-3. Creating of environment using Docker; 
-4. Writing experiment scripts and parameter sweeps; 
-5. Writing analysis using python tools. 
+
+Popper is a convention for creating reproducible scientific articles 
+and experiments [@jimenez_2017_popper_ci]. The convention is based on 
+the open source software (OSS) development model, using the DevOps 
+approach to implement different stages of execution. The Popper 
+Convention creates self-contained experiments that do not rely on 
+libraries and dependencies other than what is already inside the 
+Popper-compliant or “popperized” experiment. To achieve 
+reproducibility, Popper uses pipelines containing shell scripts that 
+execute the original experiment. An example of set of steps that an 
+experimenter can follow to help achieve reproducibility are the 
+following:
+
+ 1. Experimental design and pipeline definition.
+ 2. Selecting Software selection.
+ 3. Creating of environment using Docker.
+ 4. Writing experiment scripts and parameter sweeps.
+ 5. Writing analysis using python tools.
 
 The Popper pipeline consists of five stages: setup, run, post-run, validate, and teardown. In the setup stage, a user would usually download all the necessary files to run the project. These files are, for example, data files, libraries, and other dependencies. The run stage executes the script that is used to run the original experiment. The post-run stage is where a user would display the results obtained in the run stage. This stage could be used to open a log file that shows the results of the experiment or run a script that graphs and displays the results. Figure 1 shows the skeleton workflow for a Popper experiment using the “popper workflow” command. We note that each experiment may vary and that not all stages are needed for every experiment. 
 
@@ -161,6 +174,7 @@ In our case, for example, the simulation experiments we reproduced were made to 
 There are a variety of network simulation platforms such as NS3, MiniNet, and Cooja. NS3 [@ns3] is an open source discrete event network simulator that is widely used for simulation environments for network research. Its goal is to provide scalability and ease of use for a variety of networks. Mininet [@mininet] is also an open source simulation tool that provides a virtual network for interacting with Software-Defined Networking applications using OpenFlow. Cooja [@cooja] is a widely used network simulation platform that is specialized in evaluating wireless sensor network applications. Cooja is a simulation tool for the Contiki open source operating system, which is used for building and connecting wireless systems for the Internet of Things [@cooja]. Although each of these network simulators is a popular choice in the networking field, the experiments we are working with are conducted in Cooja, as it allows for inclusion of simple radio propagation models.
 
 ## TerrainLOS
+
 The first experiment we have reproduced in this paper is based on TerrainLOS [@mansfield_2016]. TerrainLOS is an outdoor terrain propagation model that aims to create a more accurate simulation of outdoor sensor network communication. Most simulation platforms either assume a completely flat terrain or tend to use very simplistic channel propagation models that do not represent realistic outdoor terrain conditions. To present a more accurate outdoor simulation model, TerrainLOS uses common geographical height maps, called Digital Elevation Models (DEMs). These data files are used in experimental evaluations to investigate communication between nodes under realistic conditions. TerrainLOS defines Average Cumulative Visibility (ACV) as a metric to characterize terrain. ACV denotes the average percentage of nodes that are visible in an area from all nodes on a map. For example, 100% ACV means that every node is visible to all other nodes, which further implies the presence of a flat terrain. In their experimental methodology, the authors of TerrainLOS define population as the percentage of nodes per location on a given map, e.g., a population of one means there is one node for every one hundred locations on the map. The ACV and the population metrics are used in evaluating network connectivity. Our experiments in this paper focus on automating the execution and re-execution of Experimental Connectivity simulation in [@mansfield_2016]. The purpose of this simulation is to experimentally evaluate the accuracy of connectivity results based on the models earlier presented by the authors in [@mansfield_2016]. The connectivity results are plotted using the Average Cumulative Visibility metric and population size. 
 
 ## Sensor Network Deployment Over 2.5D Terrain 
@@ -171,11 +185,13 @@ Additionally, the experiment in the paper required pre-installing an associated 
 # Reconstructing Experiments Using Popper {#sec:popperization}
 
 ## TerrainLOS
+
 TerrainLOS is intended to run in Cooja, the network simulator for the Contiki operating system. In order to run TerrainLOS, without using Popper, a researcher would have to go through several steps when attempting to replicate the results in [Sam’s Paper]. First, they would have to download Instant Contiki, a development environment for the Contiki operating system, and install a virtual machine to run it. Once the user has logged in and started the Cooja simulator, they would have to download the necessary files, libraries, and dependencies needed to run the TerrainLOS propagation model. Lastly, they would have to create a jar file of TerrainLOS and load it into Cooja to run the simulations. This is a very time-consuming task, not to mention the very likely possibility of encountering errors upon attempting to run the project the first time. Similarly to our experience, the researchers or the reviewers of the project may find that after compilation there are a few necessary files or modules missing that were not part of the set-up instructions provided by the authors. However, opposed to our particular case, reviewers rarely have a chance to contact the original author of the experiment and receive step-by-step instructions or solutions to the encountered errors. For this reason, interpreting error messages is generally cumbersome if not impossible. 
  
 Popper provides a significantly more effortless way to reproduce someone’s experiment without the need of having the original author explain the steps needed for the procedure. Usually, the author would tailor their code in a way that follows the Popper convention from the start. However, making an experiment Popper compliant in retrospect is possible as well. We want to show this by detailing the steps taken to make Experimental Connectivity simulation of TerrainLOS Popper compliant.  
 
 First, in the implementation of the Popper pipeline, two stages were generated – the run stage and the post-run stage. Although in this particular experiment the setup, validate, and teardown stages were not used, the workflow for other experiments may differ. In our pipeline, the run stage takes care of setting up the Instant Contiki and Cooja environment. Since Instant Contiki requires a virtual machine to run and Cooja is usually used with a GUI, the setup of the two was accomplished with the help of Docker containers. Docker creates an image of the Contiki operating system including the Cooja simulator. Once the virtualization of the Contiki system is finished, the main task of the run stage is to execute the author’s script that takes ACV and population size as inputs. The original simulation experiment was run using population sizes of one, ten, thirty, and eighty, and ACVs ranging from one to hundred percent with increments of ten. The same input arguments are used for the reproduced experiment as well. After the script has been executed, the output of these runs is saved in log files, which are read in the post-run stage with another script written by the author. The results are then graphed and saved in an image file as output. As a result, the original experiment is “popperized” and can be run by just simply executing the “popper check” command inside the experiment pipeline.  
+
 
 ## Sensor Network Deployment Over 2.5D Terrain 
 When first running the experiment [@veenstra_2015], there were a few tools that had to be downloaded before getting the experiment to work. Java and Contiki had to be installed since those are the environments where the experiment runs. Once the environment was set up, the code for the experiment would run in Cooja. Then for every experiment to be run, a simulation file had to be configured per experiment manually. This part of the process can be very lengthy since each simulation contains numerous different parameters. After each simulation script has been configured, each script could be run within the simulator, then after a certain amount of time the final Cumulative Visibility value is obtained. In the Popperized version of the experiment, there are two stages in the pipeline - the setup stage and run stage. The setup stage builds a Docker container which creates the necessary environment for the experiment to run. Additionally, the setup stage creates simulation scripts for every experiment the user would like to run. In the run stage, each of the scripts that have been made from the setup stage are now run in the Cooja simulator. 
@@ -218,6 +234,7 @@ In our reproduced experiment output, depicted in Figure 3, a similar graph is se
 
 ![Reproduced network connectivity results using Popper. ](figures/sam_new.jpg){#fig:new_sam}
 
+
 ## 2.5D Deployment on TerrainLOS
 ![Original results from the 2.5D Terrain Experiment.](figures/original.png){#fig:origin_veenstra}
 
@@ -227,7 +244,12 @@ Similar to Experimental Connectivity, the results of [@veenstra_2015] are obtain
 
 In the graph in Figure 5, we can see that the outputs are not exactly the same. Some of the reproduced results do not have all of the terrains as in the original results because not all of the terrains were available while reproducing the experiment. Furthermore, the values in Figure 5 are higher than the values in Figure 4. This difference is because the original paper used a custom, synchronous simulator that was programmed in C++. Since then, the author of the experiment decided to switch environments. For this reason, the experiment has been translated into a Cooja environment as a new Java model in the event-driven simulator. Despite missing elements, due to the author’s decision, the trend in both Figure 4 and Figure 5 is uniform. 
 
+
 # Lessons Learned {#sec:lessons}
+
+  * use a workflow automation tool such as CWL, Yadage, or Popper.
+  * expose relevant parameters
+  * start with reproducibility in mind. Cite Mike's paper
 
 Throughout our work using Popper to reproduce the experiments mentioned in this paper, one of the main takeaways that we learned is the difficulty involved in automating an experiment that was not implemented with reproducibility in mind. In our case, we had the opportunity to closely work with the original authors of the network experiments. However, having access to the original authors is quite uncommon. Even with the opportunity of consulting with the authors, reproducing their experiment was an extensive task as they have made a few changes to their work since publication. This further shows how focusing on reproducibility from the start (e.g., using the Popper convention or other reproducibility tools) makes it easier to obtain a versioned, automated, and portable pipeline that others can easily re-execute. 
 
