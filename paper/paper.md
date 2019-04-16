@@ -1,6 +1,5 @@
 ---
-title: "Towards Reproducible Network Simulation Experiments: A Case Study Using Popper"
-shorttitle: _portableExperiments_
+title: "Reproducible Computer Network Experiments: A Case Study Using Popper"
 author:
 - name: Andrea David
   affiliation: UC Santa Cruz
@@ -13,36 +12,132 @@ author:
   email: katia@soe.ucsc.edu
 - name: Ivo Jimenez
   affiliation: UC Santa Cruz
-  email: ivo.jimenez@ucsc.edu
-- name: Sam Mansfield 
+  email: ivo@cs.ucsc.edu
+- name: Sam Mansfield
   affiliation: UC Santa Cruz
   email: smansfie@ucsc.edu
-- name: Kerry Veenstra 
+- name: Kerry Veenstra
   affiliation: UC Santa Cruz
   email: veenstra@ucsc.edu
 abstract: |
-  In computer networks, research experiments are often conducted using a variety of network simulation platforms as well as software development tools. Many of these network simulators, however, require their own specific setup (e.g., operating system, libraries, software dependencies, etc), which makes replicating and validating research results quite challenging. There has been a growing need in experimental computer science research, including computer networks, for tools that enable experiment reproducibility. In this paper, we show how a recently proposed reproducibility tool called Popper facilitates reproducibility of networking experiments. In particular, we detail the steps taken to automate the execution and re-execution of experimental results presented in two research works. Using Popper, we develop a workflow and test it on existing experiments, comparing results from the original and the corresponding reproduced outcome. We also provide a list of lessons we learned throughout this process.
-
+  Computer network research experiments can be broadly grouped in two 
+  categories: simulated and real-world experiments. Simulation 
+  frameworks and experiment testbeds, respectively, are commonly used 
+  as the platforms on which these experiments are carried out. In many 
+  cases, given the nature of computer networks experiments, properly 
+  configuring these simulation and real-world platforms is a complex 
+  and time-consuming task, which makes replicating and validating 
+  research results quite challenging. This complexity can be reduced 
+  by leveraging tools that enable experiment reproducibility. In this 
+  paper, we show how a recently proposed reproducibility tool called 
+  Popper facilitates reproducibility of networking experiments. In 
+  particular, we detail the steps taken to implement the experiments 
+  corresponding to two published research articles. Using Popper, we 
+  develop two workflows and test it on existing experiments, comparing 
+  results from the original and the corresponding reproduced outcome. 
+  We also provide a list of lessons we learned throughout this 
+  process.
 ---
 
 # Introduction
-## Background
-The ability to reproduce previous experiments is one of the most important aspects in scientific research. However, as scientific discovery is rapidly advancing, researchers are pressured to rush publication of new findings and breakthroughs. This is especially true in Computer Science and Engineering where knowledge and technology have been advancing overwhelmingly fast and the push to publish new results is even stronger. Lately, however, there has been growing concern in the experimental computer science and engineering research community about results that cannot be reproduced and thus cannot be verified [@kurose_2016]. There is increasing consensus about the importance of being able to reproduce research results to better understand conveyed ideas and further improve upon them. 
 
-Replicating scientific experiments, however, is a challenging task. In experimental computer science and engineering, more generally, and in computer networking, more specifically, one of the biggest setbacks of reproducibility is the complexity that comes with rebuilding the same environment in which the original experiment was conducted [@jimenez_2017_popper_ci]. Many experiments in this field rely on expensive hardware and software. While simulation tools greatly facilitate conducting experiments when compared to real hardware testbed experimentation, rerunning an experiment from scratch can be strenuous. Network simulation experiments often come with the cost of extensive software configuration and package installation upon attempting to reproduce previous results. In addition, even with a correct setup there might still exist uncertainty whether results are reproduced correctly. In this paper, we make a case for a systematic approach to experimental reproducibility applied to network simulations. Furthermore, we use examples from our own experience, with an intent for it to serve as a guideline to researchers and students.
- 
-## Motivation
-In addition to validating the credibility of scientific papers and their results, reproducing networking experiments has also been used as a hands-on way to teach both fundamental and advanced concepts in computer networking [@yan2017learning]. When teaching a new topic, educators want students to engage in the particular subject matter rather than the daunting task of setting up an environment. This educational aspect could be improved by using a tool that would enable students and educators to easily create and modify end-to-end workflows to make learning more accessible to students.
+The ability to reproduce previous experiments is one of the most 
+important aspects in scientific research. However, as scientific 
+discovery is rapidly advancing, researchers are pressured to rush 
+publication of new findings and breakthroughs. This is especially true 
+in Computer Science and Engineering where knowledge and technology 
+have been advancing overwhelmingly fast and the push to publish new 
+results is even stronger. Lately, however, there has been growing 
+concern in the experimental computer science and engineering research 
+community about results that cannot be reproduced and thus cannot be 
+verified [@kurose_2016]. There is increasing consensus about the 
+importance of being able to reproduce research results to better 
+understand conveyed ideas and further improve upon them.
 
-Another motivation behind making the case for experimental reproducibility in networking research is based on our own experience as members of an academic research lab. Often times junior students help and eventually may take over the work of more senior students who are soon graduating or have already left the university. Instead of reinventing the wheel, it is in the interest of the lab for the new students to improve and build on top of previous work while leveraging as much of it as possible. However, replicating someone else’s work is challenging and often impossible. This is especially prevalent in computer networking experiments where most of the experiment setup is performed manually with little or no documentation. The current state of practice of setting up simulation experiments for researchers and practitioners involves, among other things, obtaining and keeping track of large amounts of data from various datasets, installing required software packages and libraries, and setting up the appropriate environment. These steps are often left undocumented because they usually involve consulting multiple resources along with repeated trial and error attempts. Consequently, they become not only very tedious and time consuming, but also prone to errors. As such, having a systematic approach to creating an experimental pipeline that researchers could easily modify when conducting and reproducing experiments will be a significant step forward towards more rigorous scientific research.
+Replicating scientific experiments, however, is a challenging task. In 
+experimental computer science and engineering, more generally, and in 
+computer networking, more specifically, one of the biggest setbacks of 
+reproducibility is the complexity that comes with rebuilding the same 
+environment in which the original experiment was conducted. Many 
+experiments in this field rely on expensive hardware and software. 
+While simulation tools greatly facilitate conducting experiments when 
+compared to real hardware testbed experimentation, rerunning an 
+experiment from scratch can be strenuous. Network simulation 
+experiments often come with the cost of extensive software 
+configuration and package installation upon attempting to reproduce 
+previous results. In addition, even with a correct setup there might 
+still exist uncertainty whether results are reproduced correctly. In 
+this paper, we make a case for a systematic approach to experimental 
+reproducibility applied to network simulations. Furthermore, we use 
+examples from our own experience, with an intent for it to serve as a 
+guideline to researchers and students.
 
-A recently proposed reproducibility tool named Popper introduces a convention for creating experimentation pipelines which are easy to reproduce and validate [@jimenez_2017_popper]. In order to show the suitability of the Popper convention in the experimental networking domain, we document our experience of automating the execution and re-execution of two network simulation experiments presented in [@mansfield_2016 ; @veenstra_2015]. One of the main reasons we chose these two papers was because we had the help of the original authors available to us. As a result, we were able to obtain all their original scripts and notes for reproducing their existing experiments. Additionally, we met with the authors several times to understand how the scripts map to what is reported in the original papers. This paper details our experience with the goal of serving as a reference to other researchers seeking a way to make their experiments reproducible. The contributions of our work include:
+In addition to validating the credibility of scientific papers and 
+their results, reproducing networking experiments has also been used 
+as a hands-on way to teach both fundamental and advanced concepts in 
+computer networking [@yan2017learning]. When teaching a new topic, 
+educators want students to engage in the particular subject matter 
+rather than the daunting task of setting up an environment. This 
+educational aspect could be improved by using a tool that would enable 
+students and educators to easily create and modify end-to-end 
+workflows to make learning more accessible to students.
 
-* Applying Popper in the domain of computer networks, more specificially simulation experiments; 
-* Lessons learned through this context; 
-* A methodology template for others to make a researcher's work reproducible.  
+Another motivation behind making the case for experimental 
+reproducibility in networking research is based on our own experience 
+as members of an academic research lab. Often times junior students 
+help and eventually may take over the work of more senior students who 
+are soon graduating or have already left the university. Instead of 
+reinventing the wheel, it is in the interest of the lab for the new 
+students to improve and build on top of previous work while leveraging 
+as much of it as possible. However, replicating someone else's work is 
+challenging and often impossible. This is especially prevalent in 
+computer networking experiments where most of the experiment setup is 
+performed manually with little or no documentation. The current state 
+of practice of setting up simulation experiments for researchers and 
+practitioners involves, among other things, obtaining and keeping 
+track of large amounts of data from various datasets, installing 
+required software packages and libraries, and setting up the 
+appropriate environment. These steps are often left undocumented 
+because they usually involve consulting multiple resources along with 
+repeated trial and error attempts. Consequently, they become not only 
+very tedious and time consuming, but also prone to errors. As such, 
+having a systematic approach to creating an experimental pipeline that 
+researchers could easily modify when conducting and reproducing 
+experiments will be a significant step forward towards more rigorous 
+scientific research.
 
-The remainder of the paper is organized as follows, Section 2 goes over the tool that is used to help make these simulation experiments reproducible. In Section 3, we describe the networking experiments that we reproduce using Popper as well as the network simulation platform we use, while in Section 4, we describe how each experiment was conducted originally, i.e., prior to using Popper's reproducibility model. Section 5 presents experimental results under Popper and compares them with original results. Lastly, in Section 6, we reflect on our experience and provide a list of lessons learned that we hope will help other practitioners producing this type of networking experiments.
+A recently proposed reproducibility tool named Popper introduces a 
+convention for creating experimentation pipelines which are easy to 
+reproduce and validate [@jimenez_2017_popper]. In order to show the 
+suitability of the Popper convention in the experimental networking 
+domain, we document our experience of automating the execution and 
+re-execution of two network simulation experiments presented in 
+[@mansfield_2016 ; @veenstra_2015]. One of the main reasons we chose 
+these two papers was because we had the help of the original authors 
+available to us. As a result, we were able to obtain all their 
+original scripts and notes for reproducing their existing experiments. 
+Additionally, we met with the authors several times to understand how 
+the scripts map to what is reported in the original papers. This paper 
+details our experience with the goal of serving as a reference to 
+other researchers seeking a way to make their experiments 
+reproducible. The contributions of our work include:
+
+* Applying Popper in the domain of computer networks, more 
+  specifically simulation experiments.
+* A methodology template for others to create reproducible.
+* Lessons learned.
+
+The remainder of the paper is organized as follows, Section 2 gives a 
+brief introduction to Popper, the tool that is used to help make 
+networking experiments reproducible. In Section 3, we describe the 
+networking experiments that we reproduce using Popper as well as the 
+network simulation platform we use, while in Section 4, we describe 
+how each experiment was conducted originally, i.e., prior to using 
+Popper's reproducibility model. Section 5 presents experimental 
+results under Popper and compares them with original results. Lastly, 
+in Section 6, we reflect on our experience and provide a list of 
+lessons learned that we hope will help other practitioners producing 
+this type of networking experiments.
 
 # Popper {#sec:popper_tool}
 Popper is a convention for creating reproducible scientific articles and experiments [@jimenez_2017_popper_ci]. The convention is based on the open source software (OSS) development model, using the DevOps approach to implement different stages of execution. The Popper Convention creates self-contained experiments that do not rely on libraries and dependencies other than what is already inside the Popper-compliant or “popperized” experiment. To achieve reproducibility, Popper uses pipelines containing shell scripts that execute the original experiment. An example of set of steps that an experimenter can follow to help achieve reproducibility are the following:
@@ -132,12 +227,14 @@ Similar to Experimental Connectivity, the results of [@veenstra_2015] are obtain
 
 In the graph in Figure 5, we can see that the outputs are not exactly the same. Some of the reproduced results do not have all of the terrains as in the original results because not all of the terrains were available while reproducing the experiment. Furthermore, the values in Figure 5 are higher than the values in Figure 4. This difference is because the original paper used a custom, synchronous simulator that was programmed in C++. Since then, the author of the experiment decided to switch environments. For this reason, the experiment has been translated into a Cooja environment as a new Java model in the event-driven simulator. Despite missing elements, due to the author’s decision, the trend in both Figure 4 and Figure 5 is uniform. 
 
-#Lessons Learned {#sec:lessons}
+# Lessons Learned {#sec:lessons}
+
 Throughout our work using Popper to reproduce the experiments mentioned in this paper, one of the main takeaways that we learned is the difficulty involved in automating an experiment that was not implemented with reproducibility in mind. In our case, we had the opportunity to closely work with the original authors of the network experiments. However, having access to the original authors is quite uncommon. Even with the opportunity of consulting with the authors, reproducing their experiment was an extensive task as they have made a few changes to their work since publication. This further shows how focusing on reproducibility from the start (e.g., using the Popper convention or other reproducibility tools) makes it easier to obtain a versioned, automated, and portable pipeline that others can easily re-execute. 
 
 As we strived for portability across different hardware and operating systems, we encountered some limitations. For example, our experiments were conducted in the Cooja network simulator, which has the option to run without a GUI. However, this is not the case for other GUI-based network simulation tools. Experiments implemented using platforms that are exclusively GUI-based are much harder to automate, since they cannot run in a command-line environment. A command-line interface not only helps the process of reproducibility but is required by many reproducibility tools. Furthermore, in the process of automating the experiments, we encountered issues using Docker on a Windows system and needed to switch to a Linux based operating system. Further, when creating the Docker files, we had to make sure that the images we were using were up to date and maintained, otherwise our environment would not be fully functional. 
 
 # Conclusion {#sec:conclusion}
+
 Experimental reproducibility is an essential component of scientific research. However, unlike other disciplines in the sciences, reproducing experimental results in the field of computer science and engineering has not been part of common practice for a number of reasons. This includes the fact that it is a fast evolving field and re-creating the original experimental environment from the ground up is often too complex and sometimes impossible. In this paper, we reported our experience using a recently proposed tool called Popper which employs a systematic approach to automating the experimental process, including experimental setup, (re-)execution, data analysis, and visualization. We showcase how Popper can be used to facilitate experimental reproducibility in the experimental computer networking domain. We hope our work will provide a workflow template to guide network researchers and practitioners towards making experimental reproducibility part of the best practices in the field.
 
 # References {.unnumbered}
