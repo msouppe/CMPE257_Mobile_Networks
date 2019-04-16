@@ -30,15 +30,15 @@ abstract: |
   validating research results quite challenging. This complexity can 
   be reduced by leveraging tools that enable experiment 
   reproducibility. In this paper, we show how a recently proposed 
-  reproducibility tool called Popper facilitates reproducibility of 
+  reproducibility tool called Popper facilitates the reproduction of 
   networking experiments. In particular, we detail the steps taken to 
-  reproduce experiments in two published articles that rely on 
+  reproduce results in two published articles that rely on 
   simulations. The outcome of this exercise is a generic workflow for 
-  carrying out this type of experiments. In addition, we briefly 
+  carrying out network simulation experiments. In addition, we briefly 
   present two additional Popper workflows for running experiments on 
-  experiment testbeds and studies that gather real-world metrics. We 
-  close by providing a list of lessons we learned throughout this 
-  process.
+  experiment testbeds and studies that gather real-world metrics. The 
+  code for these workflows available on Github. We close by providing 
+  a list of lessons we learned throughout this process.
 ---
 
 # Introduction
@@ -54,9 +54,9 @@ concern in this community about results that cannot be reproduced and
 thus cannot be verified [@kurose_2016]. There is increasing consensus 
 about the importance of being able to reproduce research results to 
 better understand conveyed ideas and further improve upon them. 
-Computer networks research is not the exception [@] and the networking 
-community has also been paying attention to the issues of 
-reproducibility in this domain.
+Computer networks research is not the exception and this community has 
+also been paying attention to the issues of reproducibility in this 
+domain [@bajpai_encouraging_2019].
 
 In addition to validating the credibility of scientific papers and 
 their results, reproducing networking experiments has also been used 
@@ -66,71 +66,45 @@ educators want students to engage in the particular subject matter
 rather than the daunting task of setting up an environment. This 
 educational aspect could be improved by using a tool that would enable 
 students and educators to easily create and modify end-to-end 
-workflows to make learning more accessible to students.
+workflows to make learning more accessible to students. Another 
+motivation behind making the case for experimental reproducibility in 
+networking research is based on our own experience as members of an 
+academic research lab. Often times junior students help and eventually 
+may take over the work of more senior students who are soon graduating 
+or have already left the university. Instead of reinventing the wheel, 
+it is in the interest of the lab for the new students to improve and 
+build on top of previous work while leveraging as much of it as 
+possible.
 
-Another motivation behind making the case for experimental 
-reproducibility in networking research is based on our own experience 
-as members of an academic research lab. Often times junior students 
-help and eventually may take over the work of more senior students who 
-are soon graduating or have already left the university. Instead of 
-reinventing the wheel, it is in the interest of the lab for the new 
-students to improve and build on top of previous work while leveraging 
-as much of it as possible. However, replicating someone else's work is 
-challenging and often impossible. This is especially prevalent in 
-computer networking experiments where most of the experiment setup is 
-performed manually with little or no documentation. The current state 
-of practice of setting up experiments for researchers and 
-practitioners involves, among other things, obtaining and keeping 
-track of large amounts of data from various datasets, installing 
-required software packages and libraries, and setting up the 
-appropriate environment. These steps are often left undocumented 
-because they usually involve consulting multiple resources along with 
-repeated trial and error attempts. Consequently, they become not only 
-very tedious and time consuming, but also prone to errors. As such, 
-having a systematic approach to creating an experimental pipeline that 
-researchers could easily modify when conducting and reproducing 
-experiments will be a significant step forward towards more rigorous 
-scientific research.
-
-Reproducing scientific experiments, however, is a challenging task. In 
-experimental computer science and engineering, more generally, and in 
-computer networking, more specifically, one of the biggest setbacks of 
-reproducibility is the complexity that comes with rebuilding the same 
-environment in which the original experiment was conducted. Many 
-experiments in this field rely on expensive hardware and software. 
-While simulation tools greatly facilitate conducting experiments when 
-compared to real hardware testbed experimentation, re-running an 
-experiment from scratch can be strenuous. Network simulation 
-experiments often come with the cost of extensive software 
-configuration and package installation upon attempting to reproduce 
-previous results. In addition, even with a correct setup there might 
-still exist uncertainty whether results are reproduced correctly. In 
-this paper, we make a case for a systematic approach to experimental 
-reproducibility applied to network simulations. Furthermore, we use 
-examples from our own experience, with an intent for it to serve as a 
-guideline to researchers and students.
-
-A recently proposed reproducibility tool named Popper introduces a 
-convention for creating experimentation pipelines which are easy to 
-reproduce and validate [@jimenez_2017_popper]. In order to show the 
-suitability of the Popper convention in the experimental networking 
-domain, we document our experience of automating the execution and 
-re-execution of two network simulation experiments presented in 
+One of the biggest setbacks in reproducing results is the complexity 
+that comes with rebuilding the same environment in which the original 
+experiment was conducted. Most of experiments in the field of computer 
+networks rely on expensive hardware, deep software stacks and complex 
+configuration setups. In this paper, we make the case for a systematic 
+approach to experimental reproducibility by making use of 
+reproducibility tools. A recently proposed reproducibility tool named 
+Popper introduces a convention for creating experimentation pipelines 
+which are easy to reproduce and validate [@jimenez_2017_popper]. In 
+order to show the suitability of the Popper convention in the 
+experimental networking domain, we document our experience of 
+automating the two network simulation experiments presented in 
 [@mansfield_2016 ; @veenstra_2015]. One of the main reasons we chose 
 these two papers was because we had the help of the original authors 
-available to us. As a result, we were able to obtain all their 
-original scripts and notes for reproducing their existing experiments. 
-Additionally, we met with the authors several times to understand how 
-the scripts map to what is reported in the original papers. This paper 
-details our experience with the goal of serving as a reference to 
-other researchers seeking a way to make their experiments 
-reproducible. The contributions of our work include:
+available to us. This paper details our experience with the goal of 
+serving as a reference to other researchers seeking a way to make 
+their experiments reproducible.  In addition, we briefly present two 
+additional Popper workflows for running experiments on experiment 
+testbeds and studies that gather real-world metrics. The code for 
+these workflows available on Github. The contributions of our work 
+include:
 
-  * Applying Popper in the domain of computer networks.
+  * Applying Popper in the domain of computer networks to network 
+    simulations.
   * A methodology template for others to create reproducible 
-    experiments in simulated networks, as well as experimental 
-    testbeds.
-  * Lessons learned.
+    experiments in the three broad categories of simulated networks, 
+    as well as experimental testbeds.
+  * A list of lessons learned and best practices that we have 
+    identified, and that other researchers can use as a reference.
 
 The remainder of the paper is organized as follows, Section 2 gives a 
 brief introduction to Popper, the tool that is used to help make 
@@ -139,10 +113,12 @@ networking experiments that we reproduce using Popper as well as the
 network simulation platform we use, while in Section 4, we describe 
 how each experiment was conducted originally, i.e., prior to using 
 Popper's reproducibility model. Section 5 presents experimental 
-results under Popper and compares them with original results. Lastly, 
-in Section 6, we reflect on our experience and provide a list of 
-lessons learned that we hope will help other practitioners producing 
-this type of networking experiments.
+results under Popper and compares them with original results. Section 
+6 describes briefly the workflows that correspond to experimental 
+testbeds and to real-world measurement gathering. Lastly, in Section 
+7, we reflect on our experience and provide a list of lessons learned 
+that we hope will help other practitioners working networking 
+experiments.
 
 # Popper {#sec:popper_tool}
 
@@ -152,23 +128,45 @@ the open source software (OSS) development model, using the DevOps
 approach to implement different stages of execution. The Popper 
 Convention creates self-contained experiments that do not rely on 
 libraries and dependencies other than what is already inside the 
-Popper-compliant or “popperized” experiment. To achieve 
+Popper-compliant or "Popperized" experiment. To achieve 
 reproducibility, Popper uses pipelines containing shell scripts that 
 execute the original experiment. An example of set of steps that an 
 experimenter can follow to help achieve reproducibility are the 
 following:
 
- 1. Experimental design and pipeline definition.
- 2. Selecting Software selection.
- 3. Creating of environment using Docker.
- 4. Writing experiment scripts and parameter sweeps.
- 5. Writing analysis using python tools.
+ 1. Experimental design and workflow definition.
+ 2. Selection of tools (including hardware) for the study.
+ 3. Packaging of software environment using portability tools such as 
+    Virtualenv, Docker, Vagrant, etc.
+ 4. Creation of experiment scripts and parameter sweeps.
+ 5. Creation of analysis scripts using data analysis tools such as 
+    Pandas or R.
 
-The Popper pipeline consists of five stages: setup, run, post-run, validate, and teardown. In the setup stage, a user would usually download all the necessary files to run the project. These files are, for example, data files, libraries, and other dependencies. The run stage executes the script that is used to run the original experiment. The post-run stage is where a user would display the results obtained in the run stage. This stage could be used to open a log file that shows the results of the experiment or run a script that graphs and displays the results. Figure 1 shows the skeleton workflow for a Popper experiment using the “popper workflow” command. We note that each experiment may vary and that not all stages are needed for every experiment. 
+The Popper pipeline consists of five stages: setup, run, post-run, 
+validate, and teardown. In the setup stage, a user would usually 
+download all the necessary files to run the project. These files are, 
+for example, data files, libraries, and other dependencies. The run 
+stage executes the script that is used to run the original experiment. 
+The post-run stage is where a user would display the results obtained 
+in the run stage. This stage could be used to open a log file that 
+shows the results of the experiment or run a script that graphs and 
+displays the results. Figure 1 shows the skeleton workflow for a 
+Popper experiment using the “popper workflow” command. We note that 
+each experiment may vary and that not all stages are needed for every 
+experiment.
 
 ![Automation workflow for an experiment.](figures/workflow_copy.png){#fig:workflow}
 
-In our case, for example, the simulation experiments we reproduced were made to run in a virtual environment called Instant Contiki. For this reason, we needed a Popper pipeline that could run an entire operating system. To achieve this, we used Docker, a DevOps tool that packages applications and environments into containers. Docker allowed us to create an image of the Contiki operating system that contained all the libraries and dependencies needed to run it as just one package inside our pipeline. This feature of Popper that allows the use of DevOps tools makes it an advantageous convention, which we will demonstrate in the sections that follow.
+In our case, for example, the simulation experiments we reproduced 
+were made to run in a virtual environment called Instant Contiki. For 
+this reason, we needed a Popper pipeline that could run a Linux 
+operating system. To achieve this, we used Docker, a DevOps tool that 
+packages applications and environments into containers. Docker allowed 
+us to create an image of the Contiki operating system that contained 
+all the libraries and dependencies needed to run it as just one 
+package inside our pipeline. This feature of Popper that allows the 
+use of DevOps tools makes it an advantageous convention, which we will 
+demonstrate in the sections that follow.
 
 # Network Simulation Experiments {#sec:network}
 
@@ -190,7 +188,12 @@ is a popular choice in the networking field, the experiments we are
 working with are conducted in Cooja, as it allows for inclusion of 
 simple radio propagation models.
 
-## TerrainLOS
+## Studies Reproduced In This Paper
+
+We briefly describe the experiments that we reproduce as part of our 
+work.
+
+### TerrainLOS
 
 The first experiment we have reproduced in this paper is based on 
 TerrainLOS [@mansfield_2016]. TerrainLOS is an outdoor terrain 
@@ -219,7 +222,7 @@ results based on the models earlier presented by the authors in
 [@mansfield_2016]. The connectivity results are plotted using the 
 Average Cumulative Visibility metric and population size.
 
-## Sensor Network Deployment Over 2.5D Terrain
+### Sensor Network Deployment Over 2.5D Terrain
 
 TerrainLOS has been used to evaluate the sensor placement algorithm 
 proposed in [@veenstra_2015] that aims at optimizing visual coverage 
@@ -248,9 +251,12 @@ student or researcher had to be present in front of their computer
 throughout the duration of the process. Finding a way of automating 
 this process and avoiding using a GUI was imperative.
 
-# Reconstructing Experiments Using Popper {#sec:popperization}
+## Reconstructing Experiments Using Popper {#sec:popperization}
 
-## TerrainLOS
+We describe the Popper pipelines that we created as part of 
+reproducing the experiments described in the previous section.
+
+### TerrainLOS
 
 TerrainLOS is intended to run in Cooja, the network simulator for the 
 Contiki operating system. In order to run TerrainLOS, without using 
@@ -305,7 +311,7 @@ graphed and saved in an image file as output. As a result, the
 original experiment is “Popperized” and can be run by just simply 
 executing the `popper check` command inside the experiment pipeline.
 
-## Sensor Network Deployment Over 2.5D Terrain
+### Sensor Network Deployment Over 2.5D Terrain
 
 When first running the experiment [@veenstra_2015], there were a few 
 tools that had to be downloaded before getting the experiment to work. 
@@ -363,9 +369,9 @@ paper-repo
 |    -- references.bib
 ```
 
-# Results {#sec:results}
+## Results {#sec:results}
 
-## TerrainLOS
+### TerrainLOS
 
 The simulation experiment titled Experimental Connectivity in 
 [@mansfield_2016] outputs a graph depicting the percentage of 
@@ -395,7 +401,7 @@ indicates a successful reproduction of the experiment.
 
 ![Reproduced network connectivity results using Popper. ](figures/sam_new.jpg){#fig:new_sam}
 
-## 2.5D Deployment on TerrainLOS
+### 2.5D Deployment on TerrainLOS
 
 ![Original results from the 2.5D Terrain Experiment.](figures/original.png){#fig:origin_veenstra}
 
@@ -423,22 +429,40 @@ model in the event-driven simulator. Despite missing elements, due to
 the author’s decision, the trend in both Figure 4 and Figure 5 is 
 uniform.
 
+# Controlled and Real-world Experiments {#sec:other-workflows}
+
+**TODO**.
+
 # Lessons Learned {#sec:lessons}
 
-In addition what other people have pointed out:
+Recent studies have identified good practices that can (and should) be 
+followed in order to ease the re-execution of published networking 
+experiments [@bajpai_dagstuhl_2019]. In addition to these, coming from 
+a practical angle, we identify the following:
 
-  * Start with reproducibility in mind. Cite Mike's paper
-  * Use a workflow automation tool such as Popper. CWL, Yadage, or 
-  * Expose relevant parameters.
-  * Make experiments self-contained
-
-Throughout our work using Popper to reproduce the experiments mentioned in this paper, one of the main takeaways that we learned is the difficulty involved in automating an experiment that was not implemented with reproducibility in mind. In our case, we had the opportunity to closely work with the original authors of the network experiments. However, having access to the original authors is quite uncommon. Even with the opportunity of consulting with the authors, reproducing their experiment was an extensive task as they have made a few changes to their work since publication. This further shows how focusing on reproducibility from the start (e.g., using the Popper convention or other reproducibility tools) makes it easier to obtain a versioned, automated, and portable pipeline that others can easily re-execute. 
-
-As we strived for portability across different hardware and operating systems, we encountered some limitations. For example, our experiments were conducted in the Cooja network simulator, which has the option to run without a GUI. However, this is not the case for other GUI-based network simulation tools. Experiments implemented using platforms that are exclusively GUI-based are much harder to automate, since they cannot run in a command-line environment. A command-line interface not only helps the process of reproducibility but is required by many reproducibility tools. Furthermore, in the process of automating the experiments, we encountered issues using Docker on a Windows system and needed to switch to a Linux based operating system. Further, when creating the Docker files, we had to make sure that the images we were using were up to date and maintained, otherwise our environment would not be fully functional. 
+ 1. Start with reproducibility in mind. Cite Mike's paper
+ 2. Use a workflow automation tool such as Popper. Tools such as CWL, 
+    Yadage, or CK.
+ 3. Expose relevant parameters.
+ 4. Make experiments self-contained.
 
 # Conclusion {#sec:conclusion}
 
-Experimental reproducibility is an essential component of scientific research. However, unlike other disciplines in the sciences, reproducing experimental results in the field of computer science and engineering has not been part of common practice for a number of reasons. This includes the fact that it is a fast evolving field and re-creating the original experimental environment from the ground up is often too complex and sometimes impossible. In this paper, we reported our experience using a recently proposed tool called Popper which employs a systematic approach to automating the experimental process, including experimental setup, (re-)execution, data analysis, and visualization. We showcase how Popper can be used to facilitate experimental reproducibility in the experimental computer networking domain. We hope our work will provide a workflow template to guide network researchers and practitioners towards making experimental reproducibility part of the best practices in the field.
+Experimental reproducibility is an essential component of scientific 
+research. However, unlike other disciplines in the sciences, 
+reproducing experimental results in the field of computer science and 
+engineering has not been part of common practice for a number of 
+reasons. This includes the fact that it is a fast evolving field and 
+re-creating the original experimental environment from the ground up 
+is often too complex and sometimes impossible. In this paper, we 
+reported our experience using a recently proposed tool called Popper 
+which employs a systematic approach to automating the experimental 
+process, including experimental setup, (re-)execution, data analysis, 
+and visualization. We showcase how Popper can be used to facilitate 
+experimental reproducibility in the experimental computer networking 
+domain. We hope our work will provide a workflow template to guide 
+network researchers and practitioners towards making experimental 
+reproducibility part of the best practices in the field.
 
 # References {.unnumbered}
 
