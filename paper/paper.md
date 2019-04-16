@@ -36,9 +36,9 @@ abstract: |
   simulations. The outcome of this exercise is a generic workflow for 
   carrying out network simulation experiments. In addition, we briefly 
   present two additional Popper workflows for running experiments on 
-  experiment testbeds and studies that gather real-world metrics. The 
-  code for these workflows available on Github. We close by providing 
-  a list of lessons we learned throughout this process.
+  controlled testbeds, as well as studies that gather real-world 
+  metrics (all code is publicly available on Github). We close by 
+  providing a list of lessons we learned throughout this process.
 ---
 
 # Introduction
@@ -172,7 +172,16 @@ demonstrate in the sections that follow.
 
 # Network Simulation Experiments {#sec:network}
 
-## Network Simulation Platforms 
+In this section we do a brief survey of existing simulation platforms 
+([@Sec:simulators]). We then describe two published studies that we 
+have reproduced ([@Sec:studies]), followed by an explanation of the 
+Popper pipelines that we obtained ([@Sec:popperization]). We then 
+report on the results ([@Sec:results]). The code for this pipelines, 
+which can be used by researchers as a starting point for their 
+studies, can be found at 
+<https://github.com/msouppe/cmpe257_mobile_networks>.
+
+## Network Simulation Platforms {#sec:simulators}
 
 There are a variety of network simulation platforms such as NS3, 
 MiniNet, and Cooja. NS3 [@ns3] is an open source discrete event 
@@ -190,10 +199,7 @@ is a popular choice in the networking field, the experiments we are
 working with are conducted in Cooja, as it allows for inclusion of 
 simple radio propagation models.
 
-## Studies Reproduced In This Paper
-
-We briefly describe the experiments that we reproduce as part of our 
-work.
+## Studies Reproduced In This Paper {#sec:studies}
 
 ### TerrainLOS
 
@@ -254,9 +260,6 @@ throughout the duration of the process. Finding a way of automating
 this process and avoiding using a GUI was imperative.
 
 ## Reconstructing Experiments Using Popper {#sec:popperization}
-
-We describe the Popper pipelines that we created as part of 
-reproducing the experiments described in the previous section.
 
 ### TerrainLOS
 
@@ -434,15 +437,39 @@ uniform.
 # Controlled and Real-world Experiments {#sec:other-workflows}
 
 In this section we briefly describe two Popper pipelines showcasing 
-network experiments on testbeds and in the real world.
+network experiments on testbeds and in real-world scenarios. These can 
+be found in the repository corresponding to this paper. Our goal is to 
+provide pipelines that can serve as the starting point for 
+experimenters that are working on these networks research subdomains.
 
 ## Experiments on Testbeds
 
-**TODO**
+Multiple testbeds are available. In our case, we make use of the 
+NSF-sponsored GENI federation of datacenters in the US. This 
+infrastructure provides with a wide variety of compute, storage and 
+networking hardware, including traditional, IoT and city-scale 
+wireless devices. The most time-consuming stages of a pipeline 
+involving the use of a testbed are (1) the setup stage, where 
+resources are allocated; and (2) the experiment "orchestration" phase, 
+where the logic of the experiment is executed. The pipeline we have 
+implemented makes use of Geni-lib and Ansible to accomplish these two 
+tasks. These two automation frameworks are generic and allow the 
+execution of arbitrary network topologies, as well as the execution of 
+benchmarks and protocol tests.
 
 ## Real-world Measurements
 
-**TODO**
+The real world is complex, and capturing measurements helps understand 
+researchers to make sense out of all this complexity. This type of 
+studies usually involves the deployment of nodes that test intra- and 
+inter-domain features such as internet protocol performance. One of 
+the most important aspects of this type of experiments is the 
+collection of contextual information that might help readers and 
+reviewers to interpret and verify the claims. Information such as 
+which service provider is being used, physical location of endpoints, 
+type of networks being used, among others. The pipeline we have 
+implemented deploys a client-server setup, runs tests and captures all 
+this information automatically.
 
 # Lessons Learned {#sec:lessons}
 
@@ -491,11 +518,12 @@ a practical angle, we identify the following:
     sensible to.
  5. _Capture relevant information for post-mortem analysis_. When an 
     experiment fails, the first question we ask ourselves is: "what 
-    changed between my re-execution and the previous successful 
-    reproduction of results?". In order to answer this question, we 
-    should attempt, on a best-effort basis, to collect as much 
-    information as possible that could be relevant to this type of 
-    irreproducibility analysis.
+    has changed, between my re-execution and the previous successful 
+    reproduction of results?". In order to make it easier for others 
+    to answer this question, we should attempt, on a best-effort 
+    basis, to collect as much contextual information as possible so 
+    that it can be leveraged by others (or ourselves) to apply this 
+    type of root cause analysis.
 
 # Conclusion {#sec:conclusion}
 
