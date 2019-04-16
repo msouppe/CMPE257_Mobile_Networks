@@ -98,11 +98,10 @@ testbeds and studies that gather real-world metrics. The code for
 these workflows available on Github. The contributions of our work 
 include:
 
-  * Applying Popper in the domain of computer networks to network 
-    simulations.
+  * Applying Popper in the domain of computer networks.
   * A methodology template for others to create reproducible 
-    experiments in the three broad categories of simulated networks, 
-    as well as experimental testbeds.
+    experiments in the three broad categories of networking studies: 
+    simulations, testbeds and real-world measurements.
   * A list of lessons learned and best practices that we have 
     identified, and that other researchers can use as a reference.
 
@@ -143,19 +142,21 @@ following:
     Pandas or R.
 
 The Popper pipeline consists of five stages: setup, run, post-run, 
-validate, and teardown. In the setup stage, a user would usually 
-download all the necessary files to run the project. These files are, 
-for example, data files, libraries, and other dependencies. The run 
-stage executes the script that is used to run the original experiment. 
-The post-run stage is where a user would display the results obtained 
-in the run stage. This stage could be used to open a log file that 
-shows the results of the experiment or run a script that graphs and 
-displays the results. Figure 1 shows the skeleton workflow for a 
-Popper experiment using the “popper workflow” command. We note that 
-each experiment may vary and that not all stages are needed for every 
-experiment.
-
-![Automation workflow for an experiment.](figures/workflow_copy.png){#fig:workflow}
+validate, and teardown. In the `setup` stage, the workflow would 
+usually download all the necessary software to run the experiment. 
+These files are, for example, data files, libraries, and other 
+dependencies. This stage can also be in charge of allocating resources 
+on a testbed. The `run` stage executes the script that is used to run 
+the original experiment. The `post-run` stage is where a user would 
+implement the post-processing of results obtained in the run stage. 
+This stage could be used to open a log file that shows the results of 
+the experiment or run a script that graphs and displays the results. 
+The `validate` phase is where experimenters would implement code that 
+automatically check the claims being made in their study. Lastly, the 
+`teardown` phase might be used to release resources that were 
+allocated on a remote testbed. We note that each experiment may vary 
+and that not all stages are needed for every experiment (and they can 
+also be named differently).
 
 In our case, for example, the simulation experiments we reproduced 
 were made to run in a virtual environment called Instant Contiki. For 
@@ -165,7 +166,8 @@ packages applications and environments into containers. Docker allowed
 us to create an image of the Contiki operating system that contained 
 all the libraries and dependencies needed to run it as just one 
 package inside our pipeline. This feature of Popper that allows the 
-use of DevOps tools makes it an advantageous convention, which we will 
+use of DevOps tools and does not strictly require the use of any 
+particular tool, makes it an advantageous convention, which we will 
 demonstrate in the sections that follow.
 
 # Network Simulation Experiments {#sec:network}
@@ -431,7 +433,16 @@ uniform.
 
 # Controlled and Real-world Experiments {#sec:other-workflows}
 
-**TODO**.
+In this section we briefly describe two Popper pipelines showcasing 
+network experiments on testbeds and in the real world.
+
+## Experiments on Testbeds
+
+**TODO**
+
+## Real-world Measurements
+
+**TODO**
 
 # Lessons Learned {#sec:lessons}
 
@@ -440,11 +451,51 @@ followed in order to ease the re-execution of published networking
 experiments [@bajpai_dagstuhl_2019]. In addition to these, coming from 
 a practical angle, we identify the following:
 
- 1. Start with reproducibility in mind. Cite Mike's paper
- 2. Use a workflow automation tool such as Popper. Tools such as CWL, 
-    Yadage, or CK.
- 3. Expose relevant parameters.
- 4. Make experiments self-contained.
+ 1. _Reproducibility as a first-class issue_. One of the main 
+    takeaways that we learned is the difficulty involved in automating 
+    an experiment that was not implemented with reproducibility in 
+    mind. In our case, we had the opportunity to closely work with the 
+    original authors of the network experiments. However, having 
+    access to the original authors is quite uncommon. Even with the 
+    opportunity of consulting with the authors, reproducing their 
+    experiment was an extensive task as they have made a few changes 
+    to their work since publication. This further shows how focusing 
+    on reproducibility from the start (e.g., using the Popper 
+    convention or other reproducibility tools) makes it easier to 
+    obtain a versioned, automated, and portable pipeline that others 
+    can easily re-execute. This finding, among others related to 
+    Popper best practices have been documented in 
+    [@sevilla_popper_2018].
+ 2. _Use a workflow automation tool_. Compared to workflows specified 
+    in scientific workflow engines such as Taverna or Pegasus, Popper 
+    workflows are relatively simple. One could describe Popper 
+    workflows as the highest-level workflow of a scientific 
+    exploration, which users or automation services interact with. 
+    Other alternative tools that can be used for this are CWL, Yadage, 
+    CK, among others.
+ 3. _Make experiments self-contained_. Automating an experiment does 
+    not necessarily result in creating self-contained experiments. A 
+    useful check for verifying whether an experiment is self-contained 
+    is to start from a clean-slate environment (e.g. a base OS Docker 
+    image), clone the repository that holds the pipeline, and run it. 
+    If something fails, then the experiment is not self-contained.
+ 4. _Expose relevant experiment parameters_. Once an experiment is 
+    successfully re-executed, the likely next step of a reviewer and 
+    readers is to ask "what-if" types of questions. For example, "what 
+    if I modified the number of nodes in the system?" or "what if I 
+    modified the amount of memory available to the experiment?". In 
+    order to make it easier for consumers of published research to 
+    "play" with experiments, researchers can expose in plain text 
+    format (e.g. a YAML file in the folder where the pipeline is 
+    stored) that clearly exposes the parameters that the experiment is 
+    sensible to.
+ 5. _Capture relevant information for post-mortem analysis_. When an 
+    experiment fails, the first question we ask ourselves is: "what 
+    changed between my re-execution and the previous successful 
+    reproduction of results?". In order to answer this question, we 
+    should attempt, on a best-effort basis, to collect as much 
+    information as possible that could be relevant to this type of 
+    irreproducibility analysis.
 
 # Conclusion {#sec:conclusion}
 
