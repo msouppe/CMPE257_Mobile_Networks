@@ -34,10 +34,11 @@ abstract: |
   networking experiments. In particular, we detail the steps taken to 
   reproduce experiments in two published articles that rely on 
   simulations. The outcome of this exercise is a generic workflow for 
-  carrying out this type of experiments. In addition, we present two 
-  additional Popper workflows for running experiments on experiment 
-  testbeds and real-world measurement gathering. We close by providing 
-  a list of lessons we learned throughout this process.
+  carrying out this type of experiments. In addition, we briefly 
+  present two additional Popper workflows for running experiments on 
+  experiment testbeds and studies that gather real-world metrics. We 
+  close by providing a list of lessons we learned throughout this 
+  process.
 ---
 
 # Introduction
@@ -53,25 +54,9 @@ concern in this community about results that cannot be reproduced and
 thus cannot be verified [@kurose_2016]. There is increasing consensus 
 about the importance of being able to reproduce research results to 
 better understand conveyed ideas and further improve upon them. 
-Computer networks research is not an exception and
-
-Reproducing scientific experiments, however, is a challenging task. In 
-experimental computer science and engineering, more generally, and in 
-computer networking, more specifically, one of the biggest setbacks of 
-reproducibility is the complexity that comes with rebuilding the same 
-environment in which the original experiment was conducted. Many 
-experiments in this field rely on expensive hardware and software. 
-While simulation tools greatly facilitate conducting experiments when 
-compared to real hardware testbed experimentation, re-running an 
-experiment from scratch can be strenuous. Network simulation 
-experiments often come with the cost of extensive software 
-configuration and package installation upon attempting to reproduce 
-previous results. In addition, even with a correct setup there might 
-still exist uncertainty whether results are reproduced correctly. In 
-this paper, we make a case for a systematic approach to experimental 
-reproducibility applied to network simulations. Furthermore, we use 
-examples from our own experience, with an intent for it to serve as a 
-guideline to researchers and students.
+Computer networks research is not the exception [@] and the networking 
+community has also been paying attention to the issues of 
+reproducibility in this domain.
 
 In addition to validating the credibility of scientific papers and 
 their results, reproducing networking experiments has also been used 
@@ -94,7 +79,7 @@ as much of it as possible. However, replicating someone else's work is
 challenging and often impossible. This is especially prevalent in 
 computer networking experiments where most of the experiment setup is 
 performed manually with little or no documentation. The current state 
-of practice of setting up simulation experiments for researchers and 
+of practice of setting up experiments for researchers and 
 practitioners involves, among other things, obtaining and keeping 
 track of large amounts of data from various datasets, installing 
 required software packages and libraries, and setting up the 
@@ -106,6 +91,24 @@ having a systematic approach to creating an experimental pipeline that
 researchers could easily modify when conducting and reproducing 
 experiments will be a significant step forward towards more rigorous 
 scientific research.
+
+Reproducing scientific experiments, however, is a challenging task. In 
+experimental computer science and engineering, more generally, and in 
+computer networking, more specifically, one of the biggest setbacks of 
+reproducibility is the complexity that comes with rebuilding the same 
+environment in which the original experiment was conducted. Many 
+experiments in this field rely on expensive hardware and software. 
+While simulation tools greatly facilitate conducting experiments when 
+compared to real hardware testbed experimentation, re-running an 
+experiment from scratch can be strenuous. Network simulation 
+experiments often come with the cost of extensive software 
+configuration and package installation upon attempting to reproduce 
+previous results. In addition, even with a correct setup there might 
+still exist uncertainty whether results are reproduced correctly. In 
+this paper, we make a case for a systematic approach to experimental 
+reproducibility applied to network simulations. Furthermore, we use 
+examples from our own experience, with an intent for it to serve as a 
+guideline to researchers and students.
 
 A recently proposed reproducibility tool named Popper introduces a 
 convention for creating experimentation pipelines which are easy to 
@@ -171,32 +174,169 @@ In our case, for example, the simulation experiments we reproduced were made to 
 
 ## Network Simulation Platforms 
 
-There are a variety of network simulation platforms such as NS3, MiniNet, and Cooja. NS3 [@ns3] is an open source discrete event network simulator that is widely used for simulation environments for network research. Its goal is to provide scalability and ease of use for a variety of networks. Mininet [@mininet] is also an open source simulation tool that provides a virtual network for interacting with Software-Defined Networking applications using OpenFlow. Cooja [@cooja] is a widely used network simulation platform that is specialized in evaluating wireless sensor network applications. Cooja is a simulation tool for the Contiki open source operating system, which is used for building and connecting wireless systems for the Internet of Things [@cooja]. Although each of these network simulators is a popular choice in the networking field, the experiments we are working with are conducted in Cooja, as it allows for inclusion of simple radio propagation models.
+There are a variety of network simulation platforms such as NS3, 
+MiniNet, and Cooja. NS3 [@ns3] is an open source discrete event 
+network simulator that is widely used for simulation environments for 
+network research. Its goal is to provide scalability and ease of use 
+for a variety of networks. Mininet [@mininet] is also an open source 
+simulation tool that provides a virtual network for interacting with 
+Software-Defined Networking applications using OpenFlow. Cooja 
+[@cooja] is a widely used network simulation platform that is 
+specialized in evaluating wireless sensor network applications. Cooja 
+is a simulation tool for the Contiki open source operating system, 
+which is used for building and connecting wireless systems for the 
+Internet of Things [@cooja]. Although each of these network simulators 
+is a popular choice in the networking field, the experiments we are 
+working with are conducted in Cooja, as it allows for inclusion of 
+simple radio propagation models.
 
 ## TerrainLOS
 
-The first experiment we have reproduced in this paper is based on TerrainLOS [@mansfield_2016]. TerrainLOS is an outdoor terrain propagation model that aims to create a more accurate simulation of outdoor sensor network communication. Most simulation platforms either assume a completely flat terrain or tend to use very simplistic channel propagation models that do not represent realistic outdoor terrain conditions. To present a more accurate outdoor simulation model, TerrainLOS uses common geographical height maps, called Digital Elevation Models (DEMs). These data files are used in experimental evaluations to investigate communication between nodes under realistic conditions. TerrainLOS defines Average Cumulative Visibility (ACV) as a metric to characterize terrain. ACV denotes the average percentage of nodes that are visible in an area from all nodes on a map. For example, 100% ACV means that every node is visible to all other nodes, which further implies the presence of a flat terrain. In their experimental methodology, the authors of TerrainLOS define population as the percentage of nodes per location on a given map, e.g., a population of one means there is one node for every one hundred locations on the map. The ACV and the population metrics are used in evaluating network connectivity. Our experiments in this paper focus on automating the execution and re-execution of Experimental Connectivity simulation in [@mansfield_2016]. The purpose of this simulation is to experimentally evaluate the accuracy of connectivity results based on the models earlier presented by the authors in [@mansfield_2016]. The connectivity results are plotted using the Average Cumulative Visibility metric and population size. 
+The first experiment we have reproduced in this paper is based on 
+TerrainLOS [@mansfield_2016]. TerrainLOS is an outdoor terrain 
+propagation model that aims to create a more accurate simulation of 
+outdoor sensor network communication. Most simulation platforms either 
+assume a completely flat terrain or tend to use very simplistic 
+channel propagation models that do not represent realistic outdoor 
+terrain conditions. To present a more accurate outdoor simulation 
+model, TerrainLOS uses common geographical height maps, called Digital 
+Elevation Models (DEMs). These data files are used in experimental 
+evaluations to investigate communication between nodes under realistic 
+conditions. TerrainLOS defines Average Cumulative Visibility (ACV) as 
+a metric to characterize terrain. ACV denotes the average percentage 
+of nodes that are visible in an area from all nodes on a map. For 
+example, 100% ACV means that every node is visible to all other nodes, 
+which further implies the presence of a flat terrain. In their 
+experimental methodology, the authors of TerrainLOS define population 
+as the percentage of nodes per location on a given map, e.g., a 
+population of one means there is one node for every one hundred 
+locations on the map. The ACV and the population metrics are used in 
+evaluating network connectivity. Our experiments in this paper focus 
+on automating the execution and re-execution of Experimental 
+Connectivity simulation in [@mansfield_2016]. The purpose of this 
+simulation is to experimentally evaluate the accuracy of connectivity 
+results based on the models earlier presented by the authors in 
+[@mansfield_2016]. The connectivity results are plotted using the 
+Average Cumulative Visibility metric and population size.
 
-## Sensor Network Deployment Over 2.5D Terrain 
-TerrainLOS has been used to evaluate the sensor placement algorithm proposed in [@veenstra_2015] that aims at optimizing visual coverage in deployments over 2.5D terrain. 2.5D terrain is defined as using 2-dimensional rendering techniques such as the sensor placement algorithm and using controls in 3-dimensional space such as the terrains. It is named 2.5D terrain as it is not quite 3-dimensional but it is using features of 2-dimensions and 3-dimensions. The proposed algorithm works as follows. Initially, a set of nodes is placed on a given region. Then, each node executing the algorithm moves around the terrain to optimize the collective visibility of the network. In the original paper, each new run of the experiment involved initializing a script with parameters such as number of nodes, intended transmission range of the nodes, and the desired terrain, then running the script, analyzing the results, and repeating these steps multiple times until the results are reasonable. 
+## Sensor Network Deployment Over 2.5D Terrain
 
-Additionally, the experiment in the paper required pre-installing an associated program containing a graphical user interface (GUI) that required familiarity with its features from the user. After extensive manual configuration and initialization of the parameters mentioned above, running the script and waiting for the final results was a repetitive and time-consuming task. Since each new experiment had to be configured and re-run a number of times for accurate results, the student or researcher had to be present in front of their computer throughout the duration of the process. Finding a way of automating this process and avoiding using a GUI was imperative. 
+TerrainLOS has been used to evaluate the sensor placement algorithm 
+proposed in [@veenstra_2015] that aims at optimizing visual coverage 
+in deployments over 2.5D terrain. 2.5D terrain is defined as using 
+2-dimensional rendering techniques such as the sensor placement 
+algorithm and using controls in 3-dimensional space such as the 
+terrains. It is named 2.5D terrain as it is not quite 3-dimensional 
+but it is using features of 2-dimensions and 3-dimensions. The 
+proposed algorithm works as follows. Initially, a set of nodes is 
+placed on a given region. Then, each node executing the algorithm 
+moves around the terrain to optimize the collective visibility of the 
+network. In the original paper, each new run of the experiment 
+involved initializing a script with parameters such as number of 
+nodes, intended transmission range of the nodes, and the desired 
+terrain, then running the script, analyzing the results, and repeating 
+these steps multiple times until the results are reasonable.
+
+Additionally, the experiment in the paper required pre-installing an 
+associated program containing a graphical user interface (GUI) that 
+required familiarity with its features from the user. After extensive 
+manual configuration and initialization of the parameters mentioned 
+above, running the script and waiting for the final results was a 
+repetitive and time-consuming task. Since each new experiment had to 
+be configured and re-run a number of times for accurate results, the 
+student or researcher had to be present in front of their computer 
+throughout the duration of the process. Finding a way of automating 
+this process and avoiding using a GUI was imperative.
 
 # Reconstructing Experiments Using Popper {#sec:popperization}
 
 ## TerrainLOS
 
-TerrainLOS is intended to run in Cooja, the network simulator for the Contiki operating system. In order to run TerrainLOS, without using Popper, a researcher would have to go through several steps when attempting to replicate the results in [Sam’s Paper]. First, they would have to download Instant Contiki, a development environment for the Contiki operating system, and install a virtual machine to run it. Once the user has logged in and started the Cooja simulator, they would have to download the necessary files, libraries, and dependencies needed to run the TerrainLOS propagation model. Lastly, they would have to create a jar file of TerrainLOS and load it into Cooja to run the simulations. This is a very time-consuming task, not to mention the very likely possibility of encountering errors upon attempting to run the project the first time. Similarly to our experience, the researchers or the reviewers of the project may find that after compilation there are a few necessary files or modules missing that were not part of the set-up instructions provided by the authors. However, opposed to our particular case, reviewers rarely have a chance to contact the original author of the experiment and receive step-by-step instructions or solutions to the encountered errors. For this reason, interpreting error messages is generally cumbersome if not impossible. 
- 
-Popper provides a significantly more effortless way to reproduce someone’s experiment without the need of having the original author explain the steps needed for the procedure. Usually, the author would tailor their code in a way that follows the Popper convention from the start. However, making an experiment Popper compliant in retrospect is possible as well. We want to show this by detailing the steps taken to make Experimental Connectivity simulation of TerrainLOS Popper compliant.  
+TerrainLOS is intended to run in Cooja, the network simulator for the 
+Contiki operating system. In order to run TerrainLOS, without using 
+Popper, a researcher would have to go through several steps when 
+attempting to replicate the results in [Sam’s Paper]. First, they 
+would have to download Instant Contiki, a development environment for 
+the Contiki operating system, and install a virtual machine to run it. 
+Once the user has logged in and started the Cooja simulator, they 
+would have to download the necessary files, libraries, and 
+dependencies needed to run the TerrainLOS propagation model. Lastly, 
+they would have to create a jar file of TerrainLOS and load it into 
+Cooja to run the simulations. This is a very time-consuming task, not 
+to mention the very likely possibility of encountering errors upon 
+attempting to run the project the first time. Similarly to our 
+experience, the researchers or the reviewers of the project may find 
+that after compilation there are a few necessary files or modules 
+missing that were not part of the set-up instructions provided by the 
+authors. However, opposed to our particular case, reviewers rarely 
+have a chance to contact the original author of the experiment and 
+receive step-by-step instructions or solutions to the encountered 
+errors. For this reason, interpreting error messages is generally 
+cumbersome if not impossible.
 
-First, in the implementation of the Popper pipeline, two stages were generated – the run stage and the post-run stage. Although in this particular experiment the setup, validate, and teardown stages were not used, the workflow for other experiments may differ. In our pipeline, the run stage takes care of setting up the Instant Contiki and Cooja environment. Since Instant Contiki requires a virtual machine to run and Cooja is usually used with a GUI, the setup of the two was accomplished with the help of Docker containers. Docker creates an image of the Contiki operating system including the Cooja simulator. Once the virtualization of the Contiki system is finished, the main task of the run stage is to execute the author’s script that takes ACV and population size as inputs. The original simulation experiment was run using population sizes of one, ten, thirty, and eighty, and ACVs ranging from one to hundred percent with increments of ten. The same input arguments are used for the reproduced experiment as well. After the script has been executed, the output of these runs is saved in log files, which are read in the post-run stage with another script written by the author. The results are then graphed and saved in an image file as output. As a result, the original experiment is “popperized” and can be run by just simply executing the “popper check” command inside the experiment pipeline.  
+Popper provides a significantly more effortless way to reproduce 
+someone’s experiment without the need of having the original author 
+explain the steps needed for the procedure. Usually, the author would 
+tailor their code in a way that follows the Popper convention from the 
+start. However, making an experiment Popper compliant in retrospect is 
+possible as well. We want to show this by detailing the steps taken to 
+make Experimental Connectivity simulation of TerrainLOS Popper 
+compliant.
 
+First, in the implementation of the Popper pipeline, two stages were 
+generated – the run stage and the post-run stage. Although in this 
+particular experiment the setup, validate, and teardown stages were 
+not used, the workflow for other experiments may differ. In our 
+pipeline, the run stage takes care of setting up the Instant Contiki 
+and Cooja environment. Since Instant Contiki requires a virtual 
+machine to run and Cooja is usually used with a GUI, the setup of the 
+two was accomplished with the help of Docker containers. Docker 
+creates an image of the Contiki operating system including the Cooja 
+simulator. Once the virtualization of the Contiki system is finished, 
+the main task of the run stage is to execute the author’s script that 
+takes ACV and population size as inputs. The original simulation 
+experiment was run using population sizes of one, ten, thirty, and 
+eighty, and ACVs ranging from one to hundred percent with increments 
+of ten. The same input arguments are used for the reproduced 
+experiment as well. After the script has been executed, the output of 
+these runs is saved in log files, which are read in the post-run stage 
+with another script written by the author. The results are then 
+graphed and saved in an image file as output. As a result, the 
+original experiment is “Popperized” and can be run by just simply 
+executing the `popper check` command inside the experiment pipeline.
 
-## Sensor Network Deployment Over 2.5D Terrain 
-When first running the experiment [@veenstra_2015], there were a few tools that had to be downloaded before getting the experiment to work. Java and Contiki had to be installed since those are the environments where the experiment runs. Once the environment was set up, the code for the experiment would run in Cooja. Then for every experiment to be run, a simulation file had to be configured per experiment manually. This part of the process can be very lengthy since each simulation contains numerous different parameters. After each simulation script has been configured, each script could be run within the simulator, then after a certain amount of time the final Cumulative Visibility value is obtained. In the Popperized version of the experiment, there are two stages in the pipeline - the setup stage and run stage. The setup stage builds a Docker container which creates the necessary environment for the experiment to run. Additionally, the setup stage creates simulation scripts for every experiment the user would like to run. In the run stage, each of the scripts that have been made from the setup stage are now run in the Cooja simulator. 
+## Sensor Network Deployment Over 2.5D Terrain
 
-Furthermore, in the Popper version the user only has to configure one file for multiple simulations where popper will run each simulation individually and then output the final results. The automated workflow for this simulation is as follows; first, the values of the parameters of the experiment have to be defined by the user. Second, a Docker container is created with the entire environment, modules, and packages for the experiment to run. In the third step, the simulation template gets pulled, from the pipeline created from the popper tool, and the fourth step creates N simulations that the user has defined. Fifth, those N simulations are run and lastly the Cooja.testlog are outputted into the output folder to further evaluate the final result. Listing 1 shows an example Popper pipeline for this experiment.
+When first running the experiment [@veenstra_2015], there were a few 
+tools that had to be downloaded before getting the experiment to work. 
+Java and Contiki had to be installed since those are the environments 
+where the experiment runs. Once the environment was set up, the code 
+for the experiment would run in Cooja. Then for every experiment to be 
+run, a simulation file had to be configured per experiment manually. 
+This part of the process can be very lengthy since each simulation 
+contains numerous different parameters. After each simulation script 
+has been configured, each script could be run within the simulator, 
+then after a certain amount of time the final Cumulative Visibility 
+value is obtained. In the Popperized version of the experiment, there 
+are two stages in the pipeline - the setup stage and run stage. The 
+setup stage builds a Docker container which creates the necessary 
+environment for the experiment to run. Additionally, the setup stage 
+creates simulation scripts for every experiment the user would like to 
+run. In the run stage, each of the scripts that have been made from 
+the setup stage are now run in the Cooja simulator.
+
+Furthermore, in the Popper version the user only has to configure one 
+file for multiple simulations where popper will run each simulation 
+individually and then output the final results. The automated workflow 
+for this simulation is as follows; first, the values of the parameters 
+of the experiment have to be defined by the user. Second, a Docker 
+container is created with the entire environment, modules, and 
+packages for the experiment to run. In the third step, the simulation 
+template gets pulled, from the pipeline created from the popper tool, 
+and the fourth step creates N simulations that the user has defined. 
+Fifth, those N simulations are run and lastly the Cooja.testlog are 
+outputted into the output folder to further evaluate the final result. 
+Listing 1 shows an example Popper pipeline for this experiment
 
 ```{#lst:dir .bash caption="Sample contents of a Popper repository."}
 paper-repo
@@ -226,30 +366,71 @@ paper-repo
 # Results {#sec:results}
 
 ## TerrainLOS
-The simulation experiment titled Experimental Connectivity in [@mansfield_2016] outputs a graph depicting the percentage of connected networks based on Average Cumulative Visibility and population size. This graph can be seen in Figure 2. Intuitively, population size of 80 has the highest percentage of connected networks from ACV ranging from zero to hundred percent. The authors of [@mansfield_2016] explain that this is because a larger population can bypass obstacles in the terrain (e.g., mountain) more likely than a smaller population. For this reason, the percentage of connected networks drop as the populations size decreases. 
 
-In our reproduced experiment output, depicted in Figure 3, a similar graph is seen. The reproduced experiment is not an exact copy of the original. This is because the experimental simulation outputs for Experimental Connectivity are intended to be probabilistic and vary across multiple runs. It is possible to generate the exact graph using the original simulation logs from the author, but we wanted to showcase the re-execution of the pipeline from the start of the experiment. We still observe the general trend in the reproduced results. Population size of 80 produces the highest percentage of connected networks. Furthermore, as population size decreases, the percentage of connected networks decrease as well. This trend indicates a successful reproduction of the experiment. 
+The simulation experiment titled Experimental Connectivity in 
+[@mansfield_2016] outputs a graph depicting the percentage of 
+connected networks based on Average Cumulative Visibility and 
+population size. This graph can be seen in Figure 2. Intuitively, 
+population size of 80 has the highest percentage of connected networks 
+from ACV ranging from zero to hundred percent. The authors of 
+[@mansfield_2016] explain that this is because a larger population can 
+bypass obstacles in the terrain (e.g., mountain) more likely than a 
+smaller population. For this reason, the percentage of connected 
+networks drop as the populations size decreases.
+
+In our reproduced experiment output, depicted in Figure 3, a similar 
+graph is seen. The reproduced experiment is not an exact copy of the 
+original. This is because the experimental simulation outputs for 
+Experimental Connectivity are intended to be probabilistic and vary 
+across multiple runs. It is possible to generate the exact graph using 
+the original simulation logs from the author, but we wanted to 
+showcase the re-execution of the pipeline from the start of the 
+experiment. We still observe the general trend in the reproduced 
+results. Population size of 80 produces the highest percentage of 
+connected networks. Furthermore, as population size decreases, the 
+percentage of connected networks decrease as well. This trend 
+indicates a successful reproduction of the experiment.
 
 ![Original results from the Experimental Connectivity experiment in [@mansfield_2016].](figures/sam_old.jpg){#fig:old_sam}
 
 ![Reproduced network connectivity results using Popper. ](figures/sam_new.jpg){#fig:new_sam}
 
-
 ## 2.5D Deployment on TerrainLOS
+
 ![Original results from the 2.5D Terrain Experiment.](figures/original.png){#fig:origin_veenstra}
 
 ![Reproduced results using Popper.](figures/reproduce.png){#fig:new_veenstra}
 
-Similar to Experimental Connectivity, the results of [@veenstra_2015] are obtained in a form of a graph. The output of the original paper can be seen in Figure 4, while the output of our reproduced experiment is shown in Figure 5. Figure 4 shows results for every data point calculated for the average of ten nodes in random starting positions on specified terrain [@veenstra_2015]. Furthermore, the graph illustrates each communication radius from 130 to 170 with increments of ten for the given terrains. 
+Similar to Experimental Connectivity, the results of [@veenstra_2015] 
+are obtained in a form of a graph. The output of the original paper 
+can be seen in Figure 4, while the output of our reproduced experiment 
+is shown in Figure 5. Figure 4 shows results for every data point 
+calculated for the average of ten nodes in random starting positions 
+on specified terrain [@veenstra_2015]. Furthermore, the graph 
+illustrates each communication radius from 130 to 170 with increments 
+of ten for the given terrains.
 
-In the graph in Figure 5, we can see that the outputs are not exactly the same. Some of the reproduced results do not have all of the terrains as in the original results because not all of the terrains were available while reproducing the experiment. Furthermore, the values in Figure 5 are higher than the values in Figure 4. This difference is because the original paper used a custom, synchronous simulator that was programmed in C++. Since then, the author of the experiment decided to switch environments. For this reason, the experiment has been translated into a Cooja environment as a new Java model in the event-driven simulator. Despite missing elements, due to the author’s decision, the trend in both Figure 4 and Figure 5 is uniform. 
-
+In the graph in Figure 5, we can see that the outputs are not exactly 
+the same. Some of the reproduced results do not have all of the 
+terrains as in the original results because not all of the terrains 
+were available while reproducing the experiment. Furthermore, the 
+values in Figure 5 are higher than the values in Figure 4. This 
+difference is because the original paper used a custom, synchronous 
+simulator that was programmed in C++. Since then, the author of the 
+experiment decided to switch environments. For this reason, the 
+experiment has been translated into a Cooja environment as a new Java 
+model in the event-driven simulator. Despite missing elements, due to 
+the author’s decision, the trend in both Figure 4 and Figure 5 is 
+uniform.
 
 # Lessons Learned {#sec:lessons}
 
-  * use a workflow automation tool such as CWL, Yadage, or Popper.
-  * expose relevant parameters
-  * start with reproducibility in mind. Cite Mike's paper
+In addition what other people have pointed out:
+
+  * Start with reproducibility in mind. Cite Mike's paper
+  * Use a workflow automation tool such as Popper. CWL, Yadage, or 
+  * Expose relevant parameters.
+  * Make experiments self-contained
 
 Throughout our work using Popper to reproduce the experiments mentioned in this paper, one of the main takeaways that we learned is the difficulty involved in automating an experiment that was not implemented with reproducibility in mind. In our case, we had the opportunity to closely work with the original authors of the network experiments. However, having access to the original authors is quite uncommon. Even with the opportunity of consulting with the authors, reproducing their experiment was an extensive task as they have made a few changes to their work since publication. This further shows how focusing on reproducibility from the start (e.g., using the Popper convention or other reproducibility tools) makes it easier to obtain a versioned, automated, and portable pipeline that others can easily re-execute. 
 
