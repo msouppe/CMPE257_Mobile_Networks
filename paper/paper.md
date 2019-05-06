@@ -1,11 +1,10 @@
 ---
 title: "Reproducible Computer Network Experiments: A Case Study Using Popper"
 author:
-- name: Andrea David, Mariette Souppe, Katia Obraczka, Ivo Jimenez, Sam Mansfield, Kerry Veenstra
-  email: andavid, msouppe, obraczka, ivo.jimenez, smansfie, veenstra@ucsc.edu
-  affiliation: University of California, Santa Cruz
-
-abstract: |
+- name: "Andrea David, Mariette Souppe, Katia Obraczka, Ivo Jimenez, Carlos Maltzahn, Sam Mansfield, and Kerry Veenstra"
+  email: "andavid,msouppe,obraczka,ivo.jimenez,carlosm,smansfie,veenstra@ucsc.edu"
+  affiliation: "University of California, Santa Cruz"
+abstract: >
   Computer network research experiments can be broadly grouped in 
   three categories: simulated, controlled and real-world experiments. 
   Simulation frameworks, experiment testbeds and measurement tools, 
@@ -502,6 +501,10 @@ experimental reproducibility in the experimental computer networking
 domain. We hope our work will provide a workflow template to guide 
 network researchers and practitioners towards making experimental 
 reproducibility part of the best practices in the field.
+
+**Acknowledgements**: This work was partially supported by NSF Grants 
+No. OAC-1450488, OAC-1836650, and the Center for Research in Open 
+Source Software (<https://cross.ucsc.edu>).
 
 # References {.unnumbered}
 
