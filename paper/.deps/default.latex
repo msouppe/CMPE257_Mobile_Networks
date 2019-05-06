@@ -52,10 +52,11 @@ $if(geometry)$
 \usepackage[$for(geometry)$$geometry$$sep$,$endfor$]{geometry}
 $endif$
 $if(acmart)$
-\settopmatter{printacmref=false}
-\setcopyright{none}
-\renewcommand\footnotetextcopyrightpermission[1]{} % removes footnote with conference information in first column
-\pagestyle{plain} % removes running headers
+% \settopmatter{printacmref=false}
+% \setcopyright{none}
+% \renewcommand\footnotetextcopyrightpermission[1]{} 
+% removes footnote with conference information in first column
+% \pagestyle{plain} % removes running headers
 % don't include hyperref since acmart does it on its own
 $else$
 \ifxetex

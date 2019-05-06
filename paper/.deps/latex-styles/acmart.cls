@@ -1056,8 +1056,7 @@ Computing Machinery]
   \ifx\acmConference@shortname\@empty
     \gdef\acmConference@shortname{#2}%
   \fi}
-\acmConference[Conference'17]{ACM Conference}{July 2017}{Washington,
-  DC, USA}
+\acmConference[P-RECS '19]{ACM Conference}{June 24, 2019}{Phoenix, AZ, USA.}
 \def\acmBooktitle#1{\gdef\@acmBooktitle{#1}}
 \acmBooktitle{Proceedings of \acmConference@name
        \ifx\acmConference@name\acmConference@shortname\else
@@ -2100,7 +2099,7 @@ Computing Machinery]
      \ifx\@acmEditors\@empty\textit{.}\else
        \andify\@acmEditors\textit{, }\@acmEditors~\@editorsAbbrev.%
      \fi\
-     ACM, New York, NY, USA%
+       ACM, Phoenix, AZ, USA%
        \@article@string\unskip, \ref{TotPages}~\@pages@word.
   \fi
   \@formatdoi{\@acmDOI}

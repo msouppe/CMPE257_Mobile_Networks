@@ -1,8 +1,23 @@
 ---
 title: "Reproducible Computer Network Experiments: A Case Study Using Popper"
 author:
-- name: Andrea David, Mariette Souppe, Katia Obraczka, Ivo Jimenez, Sam Mansfield, Kerry Veenstra
-  email: andavid, msouppe, obraczka, ivo.jimenez, smansfie, veenstra@ucsc.edu
+- name: Andrea David
+  email: andavid@ucsc.edu
+  affiliation: University of California, Santa Cruz
+- name: Mariette Souppe
+  email: msouppe@ucsc.edu
+  affiliation: University of California, Santa Cruz
+- name: Katia Obraczka
+  email: obraczka@ucsc.edu
+  affiliation: University of California, Santa Cruz
+- name: Ivo Jimenez
+  email: ivo.jimenez@ucsc.edu
+  affiliation: University of California, Santa Cruz
+- name: Sam Mansfield
+  email: smansfie@ucsc.edu
+  affiliation: University of California, Santa Cruz
+- name: Kerry Veenstra
+  email: veenstra@ucsc.edu
   affiliation: University of California, Santa Cruz
 
 abstract: |
