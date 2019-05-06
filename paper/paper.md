@@ -1,24 +1,10 @@
 ---
 title: "Reproducible Computer Network Experiments: A Case Study Using Popper"
 author:
-- name: Andrea David
-  affiliation: UC Santa Cruz
-  email: andavid@ucsc.edu
-- name: Mariette Souppe
-  affiliation: UC Santa Cruz
-  email: msouppe@ucsc.edu
-- name: Katia Obraczka
-  affiliation: UC Santa Cruz
-  email: katia@soe.ucsc.edu
-- name: Ivo Jimenez
-  affiliation: UC Santa Cruz
-  email: ivo@cs.ucsc.edu
-- name: Sam Mansfield
-  affiliation: UC Santa Cruz
-  email: smansfie@ucsc.edu
-- name: Kerry Veenstra
-  affiliation: UC Santa Cruz
-  email: veenstra@ucsc.edu
+- name: Andrea David, Mariette Souppe, Katia Obraczka, Ivo Jimenez, Sam Mansfield, Kerry Veenstra
+  email: andavid, msouppe, obraczka, ivo.jimenez, smansfie, veenstra@ucsc.edu
+  affiliation: University of California, Santa Cruz
+
 abstract: |
   Computer network research experiments can be broadly grouped in 
   three categories: simulated, controlled and real-world experiments. 
@@ -347,32 +333,6 @@ template gets pulled, from the pipeline created from the popper tool,
 and the fourth step creates N simulations that the user has defined. 
 Fifth, those N simulations are run and lastly the Cooja.testlog are 
 outputted into the output folder to further evaluate the final result. 
-Listing 1 shows an example Popper pipeline for this experiment
-
-```{#lst:dir .bash caption="Sample contents of a Popper repository."}
-paper-repo
-| README.md
-| .popper.yml
-| pipelines
-|   |-- myexp
-|   |   |-- setup.sh
-|   |   |-- run.sh
-|   |   |-- post-run.sh
-|   |   |-- scripts/
-|   |       |-- sim_config.yaml
-|   |       |-- sim_template.csc
-|   |       |-- create_sim_files.csc
-|   |   |-- simulations/
-|   |   |-- output/
-|   |    -- contiki/
-|   |       |-- {java files for exp}
-| paper
-|   |-- build.sh
-|   |-- figures/
-|   |-- paper.md
-|   |-- paper.pdf
-|    -- references.bib
-```
 
 ## Results {#sec:results}
 
