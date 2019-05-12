@@ -5,13 +5,13 @@ author:
   email: andavid@ucsc.edu
   affiliation: University of California, Santa Cruz
 - name: Mariette Souppe
-  email: msouppe@ucsc.edu
+  email: souppe@adobe.com
+  affiliation: Adobe Research
+- name: Ivo Jimenez
+  email: ivo.jimenez@ucsc.edu
   affiliation: University of California, Santa Cruz
 - name: Katia Obraczka
   email: obraczka@ucsc.edu
-  affiliation: University of California, Santa Cruz
-- name: Ivo Jimenez
-  email: ivo.jimenez@ucsc.edu
   affiliation: University of California, Santa Cruz
 - name: Sam Mansfield
   email: smansfie@ucsc.edu
@@ -19,14 +19,17 @@ author:
 - name: Kerry Veenstra
   email: veenstra@ucsc.edu
   affiliation: University of California, Santa Cruz
+- name: Carlos Maltzahn
+  email: carlosm@ucsc.edu
+  affiliation: University of California, Santa Cruz
 
 abstract: |
   Computer network research experiments can be broadly grouped in
-  three categories: simulated, controlled and real-world experiments.
+  three categories: simulated, controlled, and real-world experiments.
   Simulation frameworks, experiment testbeds and measurement tools,
   respectively, are commonly used as the platforms for carrying out
   network experiments. In many cases, given the nature of computer
-  networks experiments, properly configuring these platforms is a
+  network experiments, properly configuring these platforms is a
   complex and time-consuming task, which makes replicating and
   validating research results quite challenging. This complexity can
   be reduced by leveraging tools that enable experiment
@@ -356,15 +359,15 @@ outputted into the output folder to further evaluate the final result.
 The simulation experiment titled Experimental Connectivity in
 [@mansfield_2016] outputs a graph depicting the percentage of
 connected networks based on Average Cumulative Visibility and
-population size. This graph can be seen in Figure 2. Intuitively,
+population size. This graph can be seen in Figure 1. Intuitively,
 population size of 80 has the highest percentage of connected networks
 from ACV ranging from zero to hundred percent. The authors of
 [@mansfield_2016] explain that this is because a larger population can
 bypass obstacles in the terrain (e.g., mountain) more likely than a
 smaller population. For this reason, the percentage of connected
-networks drop as the populations size decreases.
+networks drops as the population size decreases.
 
-In our reproduced experiment output, depicted in Figure 3, a similar
+In our reproduced experiment output, depicted in Figure 2, a similar
 graph is seen. The reproduced experiment is not an exact copy of the
 original. This is because the experimental simulation outputs for
 Experimental Connectivity are intended to be probabilistic and vary
@@ -389,24 +392,24 @@ indicates a successful reproduction of the experiment.
 
 Similar to Experimental Connectivity, the results of [@veenstra_2015]
 are obtained in a form of a graph. The output of the original paper
-can be seen in Figure 4, while the output of our reproduced experiment
-is shown in Figure 5. Figure 4 shows results for every data point
+can be seen in Figure 3, while the output of our reproduced experiment
+is shown in Figure 4. Figure 3 shows results for every data point
 calculated for the average of ten nodes in random starting positions
 on specified terrain [@veenstra_2015]. Furthermore, the graph
 illustrates each communication radius from 130 to 170 with increments
 of ten for the given terrains.
 
-In the graph in Figure 5, we can see that the outputs are not exactly
+In the graph in Figure 4, we can see that the outputs are not exactly
 the same. Some of the reproduced results do not have all of the
 terrains as in the original results because not all of the terrains
 were available while reproducing the experiment. Furthermore, the
-values in Figure 5 are higher than the values in Figure 4. This
+values in Figure 4 are higher than the values in Figure 3. This
 difference is because the original paper used a custom, synchronous
 simulator that was programmed in C++. Since then, the author of the
 experiment decided to switch environments. For this reason, the
 experiment has been translated into a Cooja environment as a new Java
 model in the event-driven simulator. Despite missing elements, due to
-the author’s decision, the trend in both Figure 4 and Figure 5 is
+the author’s decision, the trend in both Figure 3 and Figure 4 is
 uniform.
 
 # Controlled and Real-world Experiments {#sec:other-workflows}
@@ -434,11 +437,11 @@ benchmarks and protocol tests.
 
 ## Real-world Measurements
 
-The real world is complex, and capturing measurements helps understand
-researchers to make sense out of all this complexity. This type of
+The real world is complex, but capturing measurements helps researchers 
+make sense out of all this complexity. These type of
 studies usually involves the deployment of nodes that test intra- and
 inter-domain features such as internet protocol performance. One of
-the most important aspects of this type of experiments is the
+the most important aspects of these type of experiments is the
 collection of contextual information that might help readers and
 reviewers to interpret and verify the claims. Information such as
 which service provider is being used, physical location of endpoints,
@@ -519,7 +522,7 @@ network researchers and practitioners towards making experimental
 reproducibility part of the best practices in the field.
 
 **Acknowledgements**: This work was partially supported by NSF Grants
-No. OAC-1450488, OAC-1836650, and the Center for Research in Open
+No. OAC-1450488, OAC-1836650, CNS-1321151, and the Center for Research in Open
 Source Software (<https://cross.ucsc.edu>).
 
 # References {.unnumbered}
